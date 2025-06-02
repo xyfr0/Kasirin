@@ -1,3 +1,7 @@
+
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -155,7 +159,35 @@ public class FormKasir extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
-        // TODO add your handling code here:
+        FormTambah inputForm = new FormTambah();
+        inputForm.setVisible(true);
+        if (inputForm.isSubmitted()) {
+                    String order = inputForm.getOrder();
+                    String transaksi = inputForm.getTransaksi();
+                    String quantity = inputForm.getQuantity();
+                    String operator = inputForm.getOperator();
+                    String subtotal = inputForm.getSubtotal();
+
+                    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                    model.addRow(new Object[]{
+                        model.getRowCount() + 1, // Atau gunakan ID yang sebenarnya dari database jika ada
+                        order, transaksi, quantity, operator, subtotal
+                    });
+                    JOptionPane.showMessageDialog(this, "Data berhasil ditambahkan!");
+                } 
+//        String order = inputForm.getOrder();
+//        String transaksi = inputForm.getTransaksi();
+//        String quantity = inputForm.getQuantity();
+//        String operator = inputForm.getOperator();
+//        String subtotal = inputForm.getSubtotal();
+//    // dst...
+//
+//    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+//    model.addRow(new Object[]{
+//        model.getRowCount() + 1,
+//        order, transaksi, quantity, operator,subtotal
+//    });
+
     }//GEN-LAST:event_addBtnActionPerformed
 
     private void pendapatanBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pendapatanBtnActionPerformed
@@ -163,7 +195,24 @@ public class FormKasir extends javax.swing.JFrame {
     }//GEN-LAST:event_pendapatanBtnActionPerformed
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
-        // TODO add your handling code here:
+        int selectedRow = jTable1.getSelectedRow(); // Ambil baris yang dipilih
+
+        if (selectedRow != -1) {
+            // Konfirmasi sebelum menghapus
+            int confirm = JOptionPane.showConfirmDialog(
+                this,
+                "Yakin ingin menghapus baris ini?",
+                "Konfirmasi Hapus",
+                JOptionPane.YES_NO_OPTION
+            );
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                model.removeRow(selectedRow); // Hapus baris dari model
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Pilih baris yang ingin dihapus terlebih dahulu.");
+        }
     }//GEN-LAST:event_deleteBtnActionPerformed
 
     private void transaksiBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transaksiBtnActionPerformed
