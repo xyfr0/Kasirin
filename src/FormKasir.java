@@ -1,6 +1,8 @@
 
+import com.sun.jdi.connect.spi.Connection;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.sql.*;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -16,8 +18,25 @@ public class FormKasir extends javax.swing.JFrame {
     /**
      * Creates new form FormKasir
      */
+    //deklarasi koneksi db
+    Connection koneksi;
+    Statement st;
+    ResultSet rs;
+    
+    
     public FormKasir() {
+        //perintah koneksi ke db
+        try {
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Gagal Koneksi ke DB" + e.getMessage());
+        }
+        
         initComponents();
+    }
+    
+    private void Kosongkan(){
+        
     }
 
     /**
@@ -32,13 +51,10 @@ public class FormKasir extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         addBtn = new javax.swing.JButton();
-        pendapatanBtn = new javax.swing.JButton();
-        deleteBtn = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jScrollPane = new javax.swing.JScrollPane();
+        tableTransaksi = new javax.swing.JTable();
         transaksiBtn = new javax.swing.JButton();
-        orderBtn = new javax.swing.JButton();
-        operatorBtn = new javax.swing.JButton();
+        fTransaksi = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,46 +71,23 @@ public class FormKasir extends javax.swing.JFrame {
             }
         });
 
-        pendapatanBtn.setText("Cek Pendapatan");
-        pendapatanBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pendapatanBtnActionPerformed(evt);
-            }
-        });
-
-        deleteBtn.setText("Delete");
-        deleteBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteBtnActionPerformed(evt);
-            }
-        });
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableTransaksi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID", "Order", "Transaksi", "Quantity", "Operator", "Subtotal"
+                "Transaksi", "OrderItem", "Operator", "Total"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane.setViewportView(tableTransaksi);
 
-        transaksiBtn.setText("Cek Transaksi");
+        transaksiBtn.setText("Find");
         transaksiBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 transaksiBtnActionPerformed(evt);
-            }
-        });
-
-        orderBtn.setText("Cek Order");
-
-        operatorBtn.setText("Cek Operator");
-        operatorBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                operatorBtnActionPerformed(evt);
             }
         });
 
@@ -110,14 +103,11 @@ public class FormKasir extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(38, 38, 38)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(deleteBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(addBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(pendapatanBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
-                            .addComponent(transaksiBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(orderBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(operatorBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(transaksiBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+                            .addComponent(fTransaksi))
                         .addGap(27, 27, 27)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 869, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 869, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(6, 6, 6))
         );
@@ -131,16 +121,10 @@ public class FormKasir extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(addBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(deleteBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pendapatanBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(transaksiBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(orderBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(operatorBtn))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 543, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(fTransaksi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 543, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
@@ -161,20 +145,20 @@ public class FormKasir extends javax.swing.JFrame {
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         FormTambah inputForm = new FormTambah();
         inputForm.setVisible(true);
-        if (inputForm.isSubmitted()) {
-                    String order = inputForm.getOrder();
-                    String transaksi = inputForm.getTransaksi();
-                    String quantity = inputForm.getQuantity();
-                    String operator = inputForm.getOperator();
-                    String subtotal = inputForm.getSubtotal();
-
-                    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-                    model.addRow(new Object[]{
-                        model.getRowCount() + 1, // Atau gunakan ID yang sebenarnya dari database jika ada
-                        order, transaksi, quantity, operator, subtotal
-                    });
-                    JOptionPane.showMessageDialog(this, "Data berhasil ditambahkan!");
-                } 
+//        if (inputForm.isSubmitted()) {
+//                    String order = inputForm.getOrder();
+//                    String transaksi = inputForm.getTransaksi();
+//                    String quantity = inputForm.getQuantity();
+//                    String operator = inputForm.getOperator();
+//                    String subtotal = inputForm.getSubtotal();
+//
+//                    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+//                    model.addRow(new Object[]{
+//                        model.getRowCount() + 1, // Atau gunakan ID yang sebenarnya dari database jika ada
+//                        order, transaksi, quantity, operator, subtotal
+//                    });
+//                    JOptionPane.showMessageDialog(this, "Data berhasil ditambahkan!");
+//                } 
 //        String order = inputForm.getOrder();
 //        String transaksi = inputForm.getTransaksi();
 //        String quantity = inputForm.getQuantity();
@@ -190,38 +174,9 @@ public class FormKasir extends javax.swing.JFrame {
 
     }//GEN-LAST:event_addBtnActionPerformed
 
-    private void pendapatanBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pendapatanBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pendapatanBtnActionPerformed
-
-    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
-        int selectedRow = jTable1.getSelectedRow(); // Ambil baris yang dipilih
-
-        if (selectedRow != -1) {
-            // Konfirmasi sebelum menghapus
-            int confirm = JOptionPane.showConfirmDialog(
-                this,
-                "Yakin ingin menghapus baris ini?",
-                "Konfirmasi Hapus",
-                JOptionPane.YES_NO_OPTION
-            );
-
-            if (confirm == JOptionPane.YES_OPTION) {
-                DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-                model.removeRow(selectedRow); // Hapus baris dari model
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Pilih baris yang ingin dihapus terlebih dahulu.");
-        }
-    }//GEN-LAST:event_deleteBtnActionPerformed
-
     private void transaksiBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transaksiBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_transaksiBtnActionPerformed
-
-    private void operatorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_operatorBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_operatorBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -260,14 +215,11 @@ public class FormKasir extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBtn;
-    private javax.swing.JButton deleteBtn;
+    private javax.swing.JTextField fTransaksi;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JButton operatorBtn;
-    private javax.swing.JButton orderBtn;
-    private javax.swing.JButton pendapatanBtn;
+    private javax.swing.JScrollPane jScrollPane;
+    private javax.swing.JTable tableTransaksi;
     private javax.swing.JButton transaksiBtn;
     // End of variables declaration//GEN-END:variables
 }

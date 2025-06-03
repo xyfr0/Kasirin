@@ -1,6 +1,11 @@
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -12,18 +17,36 @@ import java.awt.event.ActionListener;
  * @author ASUS
  */
 public class FormTambah extends javax.swing.JFrame {
-
+    
+    Connection koneksi;
+    Statement st;
+    ResultSet rs;
+    Boolean find = false;
+    private String order, transaksi, quantity, operator, subtotal;
+    
     /**
      * Creates new form FormTambah
      */
-    private String order, transaksi, quantity, operator, subtotal;
+    
     public FormTambah() {
+        try {
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Gagal Koneksi ke DB" + e.getMessage());
+        }
+        
         initComponents();
     }
-
-    private boolean submitted = false;
-    public boolean isSubmitted() {
-        return submitted;
+    
+    private void kosongkan(){
+        txtTransaksi.setText("");
+        txtOrder.setText("");
+        txtSubtotal.setText("");
+        txtOperator.setSelectedIndex(0);
+        btnSubmit.setEnabled(true);
+        btnChange.setEnabled(false);
+        btnDelete.setEnabled(false);
+        txtTransaksi.requestFocus();
     }
     
     public String getOrder() { return order; }
@@ -46,19 +69,38 @@ public class FormTambah extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         txtOrder = new javax.swing.JTextField();
         txtTransaksi = new javax.swing.JTextField();
-        txtQuantity = new javax.swing.JTextField();
-        txtOperator = new javax.swing.JTextField();
         txtSubtotal = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
         btnSubmit = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        txtOperator = new javax.swing.JComboBox<>();
+        btnChange = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(300, 400));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
+
+        jPanel1.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentAdded(java.awt.event.ContainerEvent evt) {
+                jPanel1ComponentAdded(evt);
+            }
+            public void componentRemoved(java.awt.event.ContainerEvent evt) {
+                jPanel1ComponentRemoved(evt);
+            }
+        });
 
         jLabel1.setText("Tambah Data");
 
@@ -66,11 +108,7 @@ public class FormTambah extends javax.swing.JFrame {
 
         jLabel3.setText("Transaksi:");
 
-        jLabel4.setText("Quantity:");
-
         jLabel5.setText("Operator:");
-
-        jLabel6.setText("Subtotal:");
 
         txtOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,16 +121,9 @@ public class FormTambah extends javax.swing.JFrame {
                 txtTransaksiActionPerformed(evt);
             }
         });
-
-        txtQuantity.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtQuantityActionPerformed(evt);
-            }
-        });
-
-        txtOperator.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtOperatorActionPerformed(evt);
+        txtTransaksi.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtTransaksiKeyPressed(evt);
             }
         });
 
@@ -102,17 +133,35 @@ public class FormTambah extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Cancel");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnCancel.setText("Cancel");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnCancelActionPerformed(evt);
             }
         });
 
-        btnSubmit.setText("OK");
+        btnSubmit.setText("Add");
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSubmitActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Total Pendapatan:");
+
+        txtOperator.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--", "OP001 -- Alex", "OP002 -- Andi", "OP003 -- Steve" }));
+
+        btnChange.setText("Change");
+        btnChange.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChangeActionPerformed(evt);
+            }
+        });
+
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
             }
         });
 
@@ -122,70 +171,56 @@ public class FormTambah extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnSubmit)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnChange)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnDelete)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCancel))
+                    .addComponent(txtOrder)
+                    .addComponent(txtSubtotal)
+                    .addComponent(txtTransaksi)
+                    .addComponent(txtOperator, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel2))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel3))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel4)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtQuantity, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtOrder)
-                            .addComponent(txtTransaksi)
-                            .addComponent(txtOperator, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
-                            .addComponent(txtSubtotal)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
                             .addComponent(jLabel6)
                             .addComponent(jLabel5))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(btnSubmit)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(28, 28, 28))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtTransaksi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtOperator, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(txtOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtOperator, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(btnSubmit))
-                .addGap(22, 22, 22))
+                    .addComponent(btnSubmit)
+                    .addComponent(btnCancel)
+                    .addComponent(btnChange)
+                    .addComponent(btnDelete))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -202,7 +237,7 @@ public class FormTambah extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(16, 16, 16))
         );
 
         pack();
@@ -211,14 +246,6 @@ public class FormTambah extends javax.swing.JFrame {
     private void txtTransaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTransaksiActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTransaksiActionPerformed
-
-    private void txtQuantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuantityActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtQuantityActionPerformed
-
-    private void txtOperatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOperatorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtOperatorActionPerformed
 
     private void txtSubtotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSubtotalActionPerformed
         // TODO add your handling code here:
@@ -229,20 +256,92 @@ public class FormTambah extends javax.swing.JFrame {
     }//GEN-LAST:event_txtOrderActionPerformed
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
-        this.order = txtOrder.getText();
-        this.transaksi = txtTransaksi.getText();
-        this.quantity = txtQuantity.getText();
-        this.operator = txtOperator.getText();
-        this.subtotal = txtSubtotal.getText();
-
-        submitted = true;
-        dispose(); // Menutup form setelah data diambil        
+        try {
+            rs.moveToInsertRow();
+            //rs.updateString(); pas udah buat DB nanti baru modif ini (kolom, "variable")
+            rs.insertRow();
+            kosongkan(); //buat kosongin inputan
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(null, "Gagal terhubung " + e.getMessage());
+        }    
     }//GEN-LAST:event_btnSubmitActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        submitted = false;
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+
         dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
+        //nunggu Database
+        try {
+            rs.moveToCurrentRow();
+        } catch (SQLException ex) {
+            
+        }
+    }//GEN-LAST:event_btnChangeActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        try {
+            rs.moveToCurrentRow();
+            int confirm = JOptionPane.showConfirmDialog(
+                this,
+                "Yakin ingin menghapus baris ini?",
+                "Konfirmasi Hapus",
+                JOptionPane.YES_NO_OPTION
+            );
+            rs.deleteRow();
+        } catch (Exception e){
+            
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formKeyPressed
+
+    private void jPanel1ComponentRemoved(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_jPanel1ComponentRemoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel1ComponentRemoved
+
+    private void jPanel1ComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_jPanel1ComponentAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel1ComponentAdded
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        kosongkan();
+    }//GEN-LAST:event_formWindowOpened
+
+    private void txtTransaksiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTransaksiKeyPressed
+        //ini nanti di ubah kalo udh gabung ke Database
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            try {
+                rs = st.executeQuery("SELECT * FROM namaTabel WHERE transaksi = '" + txtTransaksi.getText() + "' ");
+                find = rs.first();
+                
+                if(find){
+                    txtOrder.setText(rs.getString("orderItem"));
+                    txtSubtotal.setText(rs.getString("total"));
+                    txtOperator.setSelectedItem(rs.getString("operator"));
+                    
+                    JOptionPane.showMessageDialog(null, "Data transaksi ditemukan");
+                    btnSubmit.setEnabled(false);
+                    btnChange.setEnabled(true);
+                    btnDelete.setEnabled(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Data transaksi tidak ada");
+                    btnSubmit.setEnabled(true);
+                    btnChange.setEnabled(false);
+                    btnDelete.setEnabled(false);
+                    txtTransaksi.setText("");
+                    txtOrder.setText("");
+                    txtSubtotal.setText("");
+                    txtOperator.setSelectedIndex(0);
+                }
+            } catch (Exception e){
+                JOptionPane.showMessageDialog(null, "error " + e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_txtTransaksiKeyPressed
 
     
 
@@ -283,18 +382,18 @@ public class FormTambah extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnChange;
+    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnSubmit;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txtOperator;
+    private javax.swing.JComboBox<String> txtOperator;
     private javax.swing.JTextField txtOrder;
-    private javax.swing.JTextField txtQuantity;
     private javax.swing.JTextField txtSubtotal;
     private javax.swing.JTextField txtTransaksi;
     // End of variables declaration//GEN-END:variables
