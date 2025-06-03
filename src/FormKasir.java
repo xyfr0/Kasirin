@@ -65,7 +65,7 @@ public class FormKasir extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Stencil", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/transfer-money_12749045.png"))); // NOI18N
-        jLabel1.setText("TRANSAKSI");
+        jLabel1.setText("REKAP CEPAT");
 
         addBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/windows_13129897.png"))); // NOI18N
         addBtn.addActionListener(new java.awt.event.ActionListener() {
