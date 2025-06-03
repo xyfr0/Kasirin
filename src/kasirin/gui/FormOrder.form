@@ -47,14 +47,21 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane1" pref="688" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" pref="727" max="32767" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
-                              <Component id="txtOrderID" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="jLabel2" max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="txtOrderID" min="-2" pref="574" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="btnFind" min="-2" pref="46" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnFind" min="-2" pref="52" max="-2" attributes="0"/>
+                          <Component id="jButton1" min="-2" pref="41" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="btnBack" min="-2" pref="48" max="-2" attributes="0"/>
                       </Group>
@@ -71,10 +78,11 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="txtOrderID" alignment="0" min="-2" pref="31" max="-2" attributes="0"/>
-                      <Component id="btnFind" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnFind" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="btnBack" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButton1" alignment="1" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jScrollPane1" pref="307" max="32767" attributes="0"/>
@@ -146,14 +154,14 @@
         <Component class="javax.swing.JButton" name="btnFind">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/kasirin/assets/website_1150614.png"/>
+              <Image iconType="3" name="/kasirin/assets/icons8-magnifying-glass-24.png"/>
             </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnBack">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/kasirin/assets/back.png"/>
+              <Image iconType="3" name="/kasirin/assets/undo_3047360.png"/>
             </Property>
           </Properties>
           <Events>
@@ -163,6 +171,13 @@
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cari orderan berdasarkan tanggal."/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButton1">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/kasirin/assets/website_1150614.png"/>
+            </Property>
           </Properties>
         </Component>
       </SubComponents>
