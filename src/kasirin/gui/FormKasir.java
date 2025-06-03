@@ -1,3 +1,5 @@
+package kasirin.gui;
+
 
 import com.sun.jdi.connect.spi.Connection;
 import javax.swing.JOptionPane;
