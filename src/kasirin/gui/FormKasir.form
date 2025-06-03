@@ -53,12 +53,18 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="fTransaksi" alignment="0" min="-2" pref="114" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="142" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <Component id="fTransaksi" min="-2" pref="114" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="transaksiBtn" min="-2" pref="58" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="transaksiBtn" min="-2" pref="58" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
@@ -66,9 +72,9 @@
                                       <Component id="addBtn" max="32767" attributes="0"/>
                                       <Component id="btnOrder" pref="178" max="32767" attributes="0"/>
                                   </Group>
+                                  <EmptySpace min="27" pref="27" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="27" pref="27" max="-2" attributes="0"/>
                           <Component id="jScrollPane" min="-2" pref="869" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
@@ -88,12 +94,12 @@
                           <Component id="addBtn" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="btnOrder" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="transaksiBtn" max="32767" attributes="0"/>
-                              <Component id="fTransaksi" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="fTransaksi" min="-2" pref="31" max="-2" attributes="0"/>
+                              <Component id="transaksiBtn" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Component id="jScrollPane" min="-2" pref="543" max="-2" attributes="0"/>
@@ -111,7 +117,7 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/transfer-money_12749045.png"/>
+              <Image iconType="3" name="/kasirin/assets/transfer-money_12749045.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="REKAP CEPAT"/>
           </Properties>
@@ -119,7 +125,7 @@
         <Component class="javax.swing.JButton" name="addBtn">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/windows_13129897.png"/>
+              <Image iconType="3" name="/kasirin/assets/windows_13129897.png"/>
             </Property>
           </Properties>
           <Events>
@@ -186,7 +192,7 @@
         <Component class="javax.swing.JButton" name="transaksiBtn">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/website_1150614.png"/>
+              <Image iconType="3" name="/kasirin/assets/website_1150614.png"/>
             </Property>
           </Properties>
           <Events>
@@ -194,6 +200,9 @@
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="fTransaksi">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fTransaksiActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
@@ -203,7 +212,7 @@
         <Component class="javax.swing.JButton" name="btnOrder">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/folder_6594791 (1).png"/>
+              <Image iconType="3" name="/kasirin/assets/folder_6594791 (1).png"/>
             </Property>
           </Properties>
           <Events>

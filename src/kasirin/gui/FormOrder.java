@@ -55,19 +55,19 @@ public class FormOrder extends javax.swing.JFrame {
                 {null, null, null}
             },
             new String [] {
-                "Order ID", "OrderPack Name", "Quantity"
+                "Order ID", "Quantity", "Order date"
             }
         ));
         jScrollPane1.setViewportView(tableOrder);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/folder_6594791 (1).png"))); // NOI18N
-        jLabel1.setText("OrderPack");
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/kasirin/assets/folder_6594791 (1).png"))); // NOI18N
+        jLabel1.setText("List Order");
 
-        btnFind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/website_1150614.png"))); // NOI18N
+        btnFind.setIcon(new javax.swing.ImageIcon(getClass().getResource("/kasirin/assets/website_1150614.png"))); // NOI18N
 
-        btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/back.png"))); // NOI18N
+        btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/kasirin/assets/back.png"))); // NOI18N
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBackActionPerformed(evt);
@@ -102,7 +102,7 @@ public class FormOrder extends javax.swing.JFrame {
                     .addComponent(btnFind, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnBack, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
