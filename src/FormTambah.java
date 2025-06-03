@@ -107,7 +107,7 @@ public class FormTambah extends javax.swing.JFrame {
 
         jLabel1.setText("Tambah Data");
 
-        jLabel2.setText("Order:");
+        jLabel2.setText("Order ID :");
 
         jLabel3.setText("Transaksi:");
 
@@ -269,7 +269,8 @@ public class FormTambah extends javax.swing.JFrame {
     }//GEN-LAST:event_txtSubtotalActionPerformed
 
     private void txtOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOrderActionPerformed
-        // TODO add your handling code here:
+        AddOrder add = new AddOrder();
+        add.setVisible(true);
     }//GEN-LAST:event_txtOrderActionPerformed
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed

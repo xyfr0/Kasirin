@@ -50,13 +50,27 @@
                           <Component id="jLabel1" min="-2" pref="1021" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="addBtn" max="32767" attributes="0"/>
-                              <Component id="transaksiBtn" alignment="0" pref="178" max="32767" attributes="0"/>
-                              <Component id="fTransaksi" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="fTransaksi" min="-2" pref="114" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="transaksiBtn" min="-2" pref="58" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="addBtn" max="32767" attributes="0"/>
+                                      <Component id="btnOrder" pref="178" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                          <EmptySpace min="27" pref="27" max="-2" attributes="0"/>
                           <Component id="jScrollPane" min="-2" pref="869" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
@@ -74,10 +88,15 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Component id="addBtn" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="btnOrder" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="transaksiBtn" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="fTransaksi" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="transaksiBtn" min="-2" max="-2" attributes="0"/>
+                              <Component id="fTransaksi" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <Component id="jScrollPane" min="-2" pref="543" max="-2" attributes="0"/>
                   </Group>
@@ -111,15 +130,27 @@
             <Component class="javax.swing.JTable" name="tableTransaksi">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="4" rowCount="4">
+                  <Table columnCount="6" rowCount="4">
                     <Column editable="true" title="Transaksi" type="java.lang.Object"/>
-                    <Column editable="true" title="OrderItem" type="java.lang.Object"/>
+                    <Column editable="true" title="OrderPack" type="java.lang.Object"/>
                     <Column editable="true" title="Operator" type="java.lang.Object"/>
+                    <Column editable="true" title="Pendapatan" type="java.lang.Object"/>
+                    <Column editable="true" title="Pengeluaran" type="java.lang.Object"/>
                     <Column editable="true" title="Total" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>
@@ -158,6 +189,19 @@
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="fTransaksi">
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Transaksi ID"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnOrder">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Order Pack"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnOrderActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
