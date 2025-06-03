@@ -36,7 +36,7 @@
     <Container class="javax.swing.JPanel" name="jPanel1">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="cc" green="cc" red="cc" type="rgb"/>
+          <Color blue="b1" green="c1" red="ae" type="rgb"/>
         </Property>
       </Properties>
 
@@ -55,12 +55,10 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="fTransaksi" min="-2" pref="114" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="transaksiBtn" min="-2" pref="58" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="fTransaksi" alignment="0" min="-2" pref="114" max="-2" attributes="0"/>
                                   </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="transaksiBtn" min="-2" pref="58" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
@@ -93,9 +91,9 @@
                           <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="transaksiBtn" min="-2" max="-2" attributes="0"/>
-                              <Component id="fTransaksi" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="transaksiBtn" max="32767" attributes="0"/>
+                              <Component id="fTransaksi" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Component id="jScrollPane" min="-2" pref="543" max="-2" attributes="0"/>
@@ -109,15 +107,20 @@
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI Black" size="36" style="1"/>
+              <Font name="Stencil" size="36" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="KASIRIN"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/transfer-money_12749045.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="TRANSAKSI"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="addBtn">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Add"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/windows_13129897.png"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addBtnActionPerformed"/>
@@ -182,7 +185,9 @@
         </Container>
         <Component class="javax.swing.JButton" name="transaksiBtn">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Find"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/website_1150614.png"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="transaksiBtnActionPerformed"/>
@@ -197,7 +202,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnOrder">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Order Pack"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/folder_6594791 (1).png"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnOrderActionPerformed"/>
