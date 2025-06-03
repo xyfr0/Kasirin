@@ -43,6 +43,7 @@ public class FormTambah extends javax.swing.JFrame {
         txtOrder.setText("");
         txtSubtotal.setText("");
         txtOperator.setSelectedIndex(0);
+        txtPengeluaran.setText("");
         btnSubmit.setEnabled(true);
         btnChange.setEnabled(false);
         btnDelete.setEnabled(false);
@@ -79,6 +80,8 @@ public class FormTambah extends javax.swing.JFrame {
         txtOperator = new javax.swing.JComboBox<>();
         btnChange = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        txtPengeluaran = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(300, 400));
@@ -147,7 +150,7 @@ public class FormTambah extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setText("Total Pendapatan:");
+        jLabel6.setText("Pendapatan :");
 
         txtOperator.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--", "OP001 -- Alex", "OP002 -- Andi", "OP003 -- Steve" }));
 
@@ -165,6 +168,14 @@ public class FormTambah extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setText("Pengeluaran :");
+
+        txtPengeluaran.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPengeluaranActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -173,14 +184,6 @@ public class FormTambah extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnSubmit)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnChange)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnDelete)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCancel))
                     .addComponent(txtOrder)
                     .addComponent(txtSubtotal)
                     .addComponent(txtTransaksi)
@@ -190,8 +193,18 @@ public class FormTambah extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
                             .addComponent(jLabel6)
+                            .addComponent(jLabel4)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnSubmit)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnChange)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnDelete)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnCancel))
                             .addComponent(jLabel5))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(txtPengeluaran))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -211,16 +224,20 @@ public class FormTambah extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtPengeluaran, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtOperator, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSubmit)
-                    .addComponent(btnCancel)
                     .addComponent(btnChange)
-                    .addComponent(btnDelete))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnDelete)
+                    .addComponent(btnCancel))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -320,8 +337,9 @@ public class FormTambah extends javax.swing.JFrame {
                 
                 if(find){
                     txtOrder.setText(rs.getString("orderItem"));
-                    txtSubtotal.setText(rs.getString("total"));
-                    txtOperator.setSelectedItem(rs.getString("operator"));
+                    txtSubtotal.setText(rs.getString("Pendapatan"));
+                    txtPengeluaran.setText(rs.getString("Pengeluaran"));
+                    txtOperator.setSelectedItem(rs.getString("Operator"));
                     
                     JOptionPane.showMessageDialog(null, "Data transaksi ditemukan");
                     btnSubmit.setEnabled(false);
@@ -335,6 +353,7 @@ public class FormTambah extends javax.swing.JFrame {
                     txtTransaksi.setText("");
                     txtOrder.setText("");
                     txtSubtotal.setText("");
+                    txtPengeluaran.setText("");
                     txtOperator.setSelectedIndex(0);
                 }
             } catch (Exception e){
@@ -342,6 +361,10 @@ public class FormTambah extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_txtTransaksiKeyPressed
+
+    private void txtPengeluaranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPengeluaranActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPengeluaranActionPerformed
 
     
 
@@ -389,11 +412,13 @@ public class FormTambah extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JComboBox<String> txtOperator;
     private javax.swing.JTextField txtOrder;
+    private javax.swing.JTextField txtPengeluaran;
     private javax.swing.JTextField txtSubtotal;
     private javax.swing.JTextField txtTransaksi;
     // End of variables declaration//GEN-END:variables
