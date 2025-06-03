@@ -41,17 +41,15 @@ public class FormTambah extends javax.swing.JFrame {
     }
     
     private void kosongkan(){
-        txtTransaksi.setText("");
-        txtOrder.setText("");
         txtSubtotal.setText("");
-        txtOrderpack.setText("");
+        txtOrder.setText("");
         txtOrderQty.setText("");
         txtOperator.setSelectedIndex(0);
         txtPengeluaran.setText("");
         btnSubmit.setEnabled(true);
         btnChange.setEnabled(false);
         btnDelete.setEnabled(false);
-        txtTransaksi.requestFocus();
+        txtOrder.requestFocus();
     }
     
     public String getOrder() { return order; }
@@ -72,11 +70,7 @@ public class FormTambah extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        txtOrder = new javax.swing.JTextField();
-        txtTransaksi = new javax.swing.JTextField();
         txtSubtotal = new javax.swing.JTextField();
         btnCancel = new javax.swing.JButton();
         btnSubmit = new javax.swing.JButton();
@@ -87,7 +81,7 @@ public class FormTambah extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         txtPengeluaran = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        txtOrderpack = new javax.swing.JTextField();
+        txtOrder = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         txtOrderQty = new javax.swing.JTextField();
 
@@ -104,6 +98,7 @@ public class FormTambah extends javax.swing.JFrame {
             }
         });
 
+        jPanel1.setBackground(new java.awt.Color(204, 255, 204));
         jPanel1.addContainerListener(new java.awt.event.ContainerAdapter() {
             public void componentAdded(java.awt.event.ContainerEvent evt) {
                 jPanel1ComponentAdded(evt);
@@ -118,28 +113,7 @@ public class FormTambah extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/kasirin/assets/windows_13129897.png"))); // NOI18N
         jLabel1.setText("Tambah Data");
 
-        jLabel2.setText("Order ID :");
-
-        jLabel3.setText("Transaksi:");
-
         jLabel5.setText("Operator:");
-
-        txtOrder.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtOrderActionPerformed(evt);
-            }
-        });
-
-        txtTransaksi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTransaksiActionPerformed(evt);
-            }
-        });
-        txtTransaksi.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtTransaksiKeyPressed(evt);
-            }
-        });
 
         txtSubtotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -187,11 +161,11 @@ public class FormTambah extends javax.swing.JFrame {
             }
         });
 
-        jLabel7.setText("Order Name (Pack) :");
+        jLabel7.setText("Order name :");
 
-        txtOrderpack.addActionListener(new java.awt.event.ActionListener() {
+        txtOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtOrderpackActionPerformed(evt);
+                txtOrderActionPerformed(evt);
             }
         });
 
@@ -211,10 +185,7 @@ public class FormTambah extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtOrder)
-                    .addComponent(txtTransaksi)
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtOrderpack)
                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtOrderQty)
                     .addComponent(txtSubtotal)
@@ -222,8 +193,6 @@ public class FormTambah extends javax.swing.JFrame {
                     .addComponent(txtPengeluaran)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(btnSubmit)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -235,30 +204,23 @@ public class FormTambah extends javax.swing.JFrame {
                             .addComponent(jLabel6)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(txtOrder, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtTransaksi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtOrderpack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtOrderQty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -270,7 +232,7 @@ public class FormTambah extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtOperator, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSubmit)
                     .addComponent(btnChange)
@@ -298,17 +260,9 @@ public class FormTambah extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtTransaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTransaksiActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTransaksiActionPerformed
-
     private void txtSubtotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSubtotalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSubtotalActionPerformed
-
-    private void txtOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOrderActionPerformed
-
-    }//GEN-LAST:event_txtOrderActionPerformed
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         try {
@@ -366,40 +320,6 @@ public class FormTambah extends javax.swing.JFrame {
         kosongkan();
     }//GEN-LAST:event_formWindowOpened
 
-    private void txtTransaksiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTransaksiKeyPressed
-        //ini nanti di ubah kalo udh gabung ke Database
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
-            try {
-                rs = st.executeQuery("SELECT * FROM namaTabel WHERE transaksi = '" + txtTransaksi.getText() + "' ");
-                find = rs.first();
-                
-                if(find){
-                    txtOrder.setText(rs.getString("orderItem"));
-                    txtSubtotal.setText(rs.getString("Pendapatan"));
-                    txtPengeluaran.setText(rs.getString("Pengeluaran"));
-                    txtOperator.setSelectedItem(rs.getString("Operator"));
-                    
-                    JOptionPane.showMessageDialog(null, "Data transaksi ditemukan");
-                    btnSubmit.setEnabled(false);
-                    btnChange.setEnabled(true);
-                    btnDelete.setEnabled(true);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Data transaksi tidak ada");
-                    btnSubmit.setEnabled(true);
-                    btnChange.setEnabled(false);
-                    btnDelete.setEnabled(false);
-                    txtTransaksi.setText("");
-                    txtOrder.setText("");
-                    txtSubtotal.setText("");
-                    txtPengeluaran.setText("");
-                    txtOperator.setSelectedIndex(0);
-                }
-            } catch (Exception e){
-                JOptionPane.showMessageDialog(null, "error " + e.getMessage());
-            }
-        }
-    }//GEN-LAST:event_txtTransaksiKeyPressed
-
     private void txtPengeluaranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPengeluaranActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPengeluaranActionPerformed
@@ -408,9 +328,9 @@ public class FormTambah extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtOrderQtyActionPerformed
 
-    private void txtOrderpackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOrderpackActionPerformed
+    private void txtOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOrderActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtOrderpackActionPerformed
+    }//GEN-LAST:event_txtOrderActionPerformed
 
     
 
@@ -456,8 +376,6 @@ public class FormTambah extends javax.swing.JFrame {
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnSubmit;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -467,9 +385,7 @@ public class FormTambah extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> txtOperator;
     private javax.swing.JTextField txtOrder;
     private javax.swing.JTextField txtOrderQty;
-    private javax.swing.JTextField txtOrderpack;
     private javax.swing.JTextField txtPengeluaran;
     private javax.swing.JTextField txtSubtotal;
-    private javax.swing.JTextField txtTransaksi;
     // End of variables declaration//GEN-END:variables
 }

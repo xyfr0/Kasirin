@@ -1,7 +1,6 @@
 package kasirin.gui;
 
 
-import com.sun.jdi.connect.spi.Connection;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.*;
@@ -21,18 +20,10 @@ public class FormKasir extends javax.swing.JFrame {
      * Creates new form FormKasir
      */
     //deklarasi koneksi db
-    Connection koneksi;
-    Statement st;
-    ResultSet rs;
-    
     
     public FormKasir() {
         //perintah koneksi ke db
-        try {
             
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Gagal Koneksi ke DB" + e.getMessage());
-        }
         
         initComponents();
     }
@@ -84,7 +75,7 @@ public class FormKasir extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Transaksi", "OrderPack", "Operator", "Pendapatan", "Pengeluaran", "Total"
+                "Transaksi", "Date", "Operator", "Pendapatan", "Pengeluaran", "Total"
             }
         ));
         jScrollPane.setViewportView(tableTransaksi);
