@@ -1,6 +1,6 @@
 package kasirin;
 
-import kasirin.db.Koneksi;
+import kasirin.util.Koneksi;
 import java.sql.*;
 
 /*
