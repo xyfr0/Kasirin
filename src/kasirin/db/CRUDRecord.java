@@ -12,12 +12,13 @@ import java.util.Date;
  * @author jabba
  */
 public class CRUDRecord {
+    Koneksi koneksi = new Koneksi();
 
     private String SQL_QUERY = "USE KASIRIN ";
 
     public void insertTransaction(int transactionID, double amount, Date transactionDate, String transactionType, String description) {
 
-        try (Connection conn = Koneksi.connect(); PreparedStatement ps = conn.prepareStatement(SQL_QUERY
+        try (Connection conn = koneksi.connect(); PreparedStatement ps = conn.prepareStatement(SQL_QUERY
                 + "INSERT INTO Transactions (TransactionID, Order, , TransactionType, Description) "
                 + "VALUES (?, ?, ?, ?, ?);"
         )) {
@@ -33,7 +34,7 @@ public class CRUDRecord {
     }
 
     public void deleteTransaction(int transactionID) {
-        try (Connection conn = Koneksi.connect(); PreparedStatement ps = conn.prepareStatement(SQL_QUERY 
+        try (Connection conn = koneksi.connect(); PreparedStatement ps = conn.prepareStatement(SQL_QUERY 
                 + "DELETE FROM Transactions WHERE TransactionID = ?")) {
             ps.setInt(1, transactionID);
             ps.executeUpdate();
