@@ -14,7 +14,7 @@ public class Koneksi {
 
     Connection con = null;
 
-    public Connection connect() throws SQLException, ClassNotFoundException {        
+    public static Connection connect() throws SQLException, ClassNotFoundException {        
         String connectionUrl = "jdbc:sqlserver://Tenma:1691;databaseName=KASIRIN;encrypt=true;trustServerCertificate=true;user=irhamjab;password=basdatOke123;";
         Connection con = DriverManager.getConnection(connectionUrl);
         return con;

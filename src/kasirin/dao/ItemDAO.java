@@ -7,6 +7,7 @@ package kasirin.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import kasirin.model.Item;
 import kasirin.util.Koneksi;
 
 /**
@@ -21,15 +22,15 @@ public class ItemDAO {
         conn = Koneksi.connect();
     }
     
-    public void addOperator(String itemID, String itemName, int stock, double price){
+    public void addOperator(Item item){
         String query = "USE KASIRIN "
                 + "INSERT INTO Operators (ItemID, ItemName, Stock, Price) "
                 + "VALUES (?, ?, ?, ?)";
         try(PreparedStatement ps = conn.prepareStatement(query)){
-            ps.setString(1, itemID);
-            ps.setString(2, itemName);
-            ps.setInt(3, stock);            
-            ps.setDouble(4, price);
+            ps.setString(1, item.getItemID());
+            ps.setString(2, item.getItemName());
+            ps.setInt(3, item.getStock());            
+            ps.setDouble(4, item.getPrice());
             ps.executeUpdate();
         }catch(SQLException se){
             se.getMessage();

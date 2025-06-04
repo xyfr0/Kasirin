@@ -11,15 +11,16 @@ package kasirin.model;
 public class Item {
     private String itemID;
     private String itemName;
-    private int price;
-    private double stock;
+    private double price;
+    private int stock;
 
-    public Item(String itemID, String itemName, int price, double stock) {
+    public Item(String itemID, String itemName, double price, int stock) {
         this.itemID = itemID;
         this.itemName = itemName;
         this.price = price;
         this.stock = stock;
     }
+        
 
     public String getItemID() {
         return itemID;
@@ -37,21 +38,23 @@ public class Item {
         this.itemName = itemName;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    public double getStock() {
+    public int getStock() {
         return stock;
     }
 
-    public void setStock(double stock) {
+    public void setStock(int stock) {
         this.stock = stock;
     }
+
+    
     
     
     

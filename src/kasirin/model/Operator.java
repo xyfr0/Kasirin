@@ -11,7 +11,7 @@ package kasirin.model;
 public class Operator {
     private String operatorID;
     private String operatorName;
-    private String operatorGender;
+    private String operatorGender;    
 
     public Operator(String operatorID, String operatorName, String operatorGender) {
         this.operatorID = operatorID;

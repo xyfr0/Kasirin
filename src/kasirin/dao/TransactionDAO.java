@@ -6,6 +6,7 @@ package kasirin.dao;
 
 import java.sql.*;
 import java.time.LocalDateTime;
+import kasirin.model.Transaction;
 import kasirin.util.Koneksi;
 
 /**
@@ -20,15 +21,15 @@ public class TransactionDAO {
         conn = Koneksi.connect();
     }
 
-    public void addTransaction(String transactionID, LocalDateTime transactionDate, double income, double total) {
+    public void addTransaction(Transaction transaction) {
         String query = "USE KASIRIN "
                 + "INSERT INTO Transactions (TransactionID, TransactionDate, income, total) "
                 + "VALUES (?, ?, ?, ?)";
         try (PreparedStatement ps = conn.prepareStatement(query)) {
-            ps.setString(1, transactionID);
-            ps.setObject(2, transactionDate);
-            ps.setDouble(3, income);
-            ps.setDouble(4, total);
+            ps.setString(1, transaction.getTransactionID());
+            ps.setObject(2, transaction.getTransactionDate());
+            ps.setDouble(3, transaction.getIncome());
+            ps.setDouble(4, transaction.getTotal());
             ps.executeUpdate();
         } catch (SQLException se) {
             se.getMessage();

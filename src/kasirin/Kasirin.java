@@ -15,12 +15,7 @@ import java.sql.*;
 public class Kasirin {    
     
     public static void main(String[] args) {
-        Koneksi koneksi = new Koneksi();
-        try{
-            koneksi.connect();
-        } catch(SQLException | ClassNotFoundException e){
-            e.printStackTrace();
-        }
+        
     }
     
 }
