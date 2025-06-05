@@ -73,9 +73,17 @@ public class FormKasir extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Transaksi", "Date", "Operator", "Pendapatan", "Total"
+                "ID", "Transaksi", "Date", "Operator", "Pendapatan", "Total"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Double.class, java.lang.Double.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane.setViewportView(tableTransaksi);
 
         transaksiBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/kasirin/assets/website_1150614.png"))); // NOI18N
@@ -177,32 +185,6 @@ public class FormKasir extends javax.swing.JFrame {
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         FormTambah inputForm = new FormTambah();
         inputForm.setVisible(true);
-//        if (inputForm.isSubmitted()) {
-//                    String order = inputForm.getOrder();
-//                    String transaksi = inputForm.getTransaksi();
-//                    String quantity = inputForm.getQuantity();
-//                    String operator = inputForm.getOperator();
-//                    String subtotal = inputForm.getSubtotal();
-//
-//                    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-//                    model.addRow(new Object[]{
-//                        model.getRowCount() + 1, // Atau gunakan ID yang sebenarnya dari database jika ada
-//                        order, transaksi, quantity, operator, subtotal
-//                    });
-//                    JOptionPane.showMessageDialog(this, "Data berhasil ditambahkan!");
-//                } 
-//        String order = inputForm.getOrder();
-//        String transaksi = inputForm.getTransaksi();
-//        String quantity = inputForm.getQuantity();
-//        String operator = inputForm.getOperator();
-//        String subtotal = inputForm.getSubtotal();
-//    // dst...
-//
-//    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-//    model.addRow(new Object[]{
-//        model.getRowCount() + 1,
-//        order, transaksi, quantity, operator,subtotal
-//    });
 
     }//GEN-LAST:event_addBtnActionPerformed
 
