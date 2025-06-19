@@ -42,14 +42,10 @@ public class FormTambah extends javax.swing.JFrame {
     
     private void kosongkan(){
         txtSubtotal.setText("");
-        txtOrder.setText("");
         txtOrderQty.setText("");
         txtOperator.setSelectedIndex(0);
-        txtPengeluaran.setText("");
         btnSubmit.setEnabled(true);
-        btnChange.setEnabled(false);
         btnDelete.setEnabled(false);
-        txtOrder.requestFocus();
     }
     
     public String getOrder() { return order; }
@@ -76,14 +72,13 @@ public class FormTambah extends javax.swing.JFrame {
         btnSubmit = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         txtOperator = new javax.swing.JComboBox<>();
-        btnChange = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        txtPengeluaran = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        txtOrder = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         txtOrderQty = new javax.swing.JTextField();
+        tProduk = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        txtCust = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(300, 400));
@@ -111,10 +106,11 @@ public class FormTambah extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/kasirin/assets/windows_13129897.png"))); // NOI18N
-        jLabel1.setText("Tambah Data");
+        jLabel1.setText("TRANSACTION");
 
         jLabel5.setText("Operator:");
 
+        txtSubtotal.setEditable(false);
         txtSubtotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSubtotalActionPerformed(evt);
@@ -135,16 +131,9 @@ public class FormTambah extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setText("Pendapatan :");
+        jLabel6.setText("Total");
 
         txtOperator.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--", "OP001 -- Alex", "OP002 -- Andi", "OP003 -- Steve" }));
-
-        btnChange.setText("Change");
-        btnChange.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnChangeActionPerformed(evt);
-            }
-        });
 
         btnDelete.setText("Delete");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -153,21 +142,7 @@ public class FormTambah extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setText("Pengeluaran :");
-
-        txtPengeluaran.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPengeluaranActionPerformed(evt);
-            }
-        });
-
-        jLabel7.setText("Order name :");
-
-        txtOrder.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtOrderActionPerformed(evt);
-            }
-        });
+        jLabel7.setText("Order Produk :");
 
         jLabel8.setText("Order Quantity");
 
@@ -176,6 +151,10 @@ public class FormTambah extends javax.swing.JFrame {
                 txtOrderQtyActionPerformed(evt);
             }
         });
+
+        tProduk.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel2.setText("Customer name :");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -190,33 +169,32 @@ public class FormTambah extends javax.swing.JFrame {
                     .addComponent(txtOrderQty)
                     .addComponent(txtSubtotal)
                     .addComponent(txtOperator, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtPengeluaran)
+                    .addComponent(tProduk, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtCust)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel2)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(btnSubmit)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnChange)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnDelete)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnCancel))
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(txtOrder, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addComponent(btnCancel)))
+                        .addGap(0, 506, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(tProduk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtOrderQty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -225,17 +203,16 @@ public class FormTambah extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel4)
+                .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtPengeluaran, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtCust, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtOperator, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 171, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSubmit)
-                    .addComponent(btnChange)
                     .addComponent(btnDelete)
                     .addComponent(btnCancel))
                 .addContainerGap())
@@ -245,19 +222,15 @@ public class FormTambah extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(16, 16, 16))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtSubtotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSubtotalActionPerformed
@@ -276,18 +249,10 @@ public class FormTambah extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-
-        dispose();
+        FormKasir kasir = new FormKasir();
+        kasir.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
-
-    private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
-        //nunggu Database
-        try {
-            rs.moveToCurrentRow();
-        } catch (SQLException ex) {
-            
-        }
-    }//GEN-LAST:event_btnChangeActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         try {
@@ -320,17 +285,9 @@ public class FormTambah extends javax.swing.JFrame {
         kosongkan();
     }//GEN-LAST:event_formWindowOpened
 
-    private void txtPengeluaranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPengeluaranActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPengeluaranActionPerformed
-
     private void txtOrderQtyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOrderQtyActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtOrderQtyActionPerformed
-
-    private void txtOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOrderActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtOrderActionPerformed
 
     
 
@@ -372,20 +329,19 @@ public class FormTambah extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
-    private javax.swing.JButton btnChange;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnSubmit;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JComboBox<String> tProduk;
+    private javax.swing.JTextField txtCust;
     private javax.swing.JComboBox<String> txtOperator;
-    private javax.swing.JTextField txtOrder;
     private javax.swing.JTextField txtOrderQty;
-    private javax.swing.JTextField txtPengeluaran;
     private javax.swing.JTextField txtSubtotal;
     // End of variables declaration//GEN-END:variables
 }
