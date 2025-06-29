@@ -19,10 +19,5 @@ public class Koneksi {
         Connection con = DriverManager.getConnection(connectionUrl);
         return con;
     }
-
-    public Connection getCon() {
-        return con;
-    }
-    
     
 }

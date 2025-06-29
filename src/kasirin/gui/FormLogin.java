@@ -4,6 +4,10 @@
  */
 package kasirin.gui;
 
+import java.sql.*;
+import javax.swing.JOptionPane;
+import kasirin.util.Koneksi;
+
 /**
  *
  * @author Muhammad Dzaky
@@ -42,6 +46,18 @@ public class FormLogin extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/kasirin/assets/smile_9350611 (1).png"))); // NOI18N
         jLabel1.setText("WELCOME");
+
+        tUsername.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tUsernameActionPerformed(evt);
+            }
+        });
+
+        tPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tPasswordActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tw Cen MT", 1, 14)); // NOI18N
         jLabel2.setText("Username");
@@ -95,7 +111,6 @@ public class FormLogin extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))))
-                .addGap(18, 18, 18)
                 .addComponent(bLogin)
                 .addGap(198, 198, 198))
         );
@@ -116,10 +131,46 @@ public class FormLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLoginActionPerformed
-        FormKasir x = new FormKasir();
-        x.setVisible(true);
-        this.dispose();
+        String username = tUsername.getText();
+        String password = tPassword.getText();
+
+        try (Connection conn = Koneksi.connect()) {
+            String sql = "SELECT * FROM Operator WHERE username=? AND password COLLATE Latin1_General_CS_AS =?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, username);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                String role = rs.getString("role").toLowerCase();
+                if (role.equalsIgnoreCase("admin")) {
+                    JOptionPane.showMessageDialog(this, "Login Successful!");
+                    FormKasirAdmin x = new FormKasirAdmin();
+                    x.setVisible(true);
+                    this.dispose();
+                } else if (role.equalsIgnoreCase("operator")) {
+                    JOptionPane.showMessageDialog(this, "Login Successful!");
+                    FormKasir x = new FormKasir();
+                    x.setVisible(true);
+                    this.dispose();
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Email Atau Password Salah!");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Database Error " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            System.getLogger(FormLogin.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+
     }//GEN-LAST:event_bLoginActionPerformed
+
+    private void tUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tUsernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tUsernameActionPerformed
+
+    private void tPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tPasswordActionPerformed
 
     /**
      * @param args the command line arguments
