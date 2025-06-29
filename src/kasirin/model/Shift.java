@@ -51,15 +51,15 @@ public class Shift {
         this.end_time = end_time;
     }
 
-    public void addShift(Shift shift){
+    public void addShift(Shift shift) {
         if (isIdAvailable(shift.getShift_id())) {
-            try (Connection conn = Koneksi.connect(); PreparedStatement ps = conn.prepareStatement("USE KASIRIN INSERT INTO Shift (shift_id, day, start_time, end_time) VALUES (?, ?, ?, ?)")) {                
+            try (Connection conn = Koneksi.connect(); PreparedStatement ps = conn.prepareStatement("USE KASIRIN INSERT INTO Shift (shift_id, day, start_time, end_time) VALUES (?, ?, ?, ?)")) {
                 ps.setString(1, shift.getShift_id());
                 ps.setObject(2, shift.getDay());
                 ps.setObject(3, shift.getStart_time());
                 ps.setObject(4, shift.getEnd_time());
                 ps.executeUpdate();
-            }catch( SQLException | ClassNotFoundException sce){
+            } catch (SQLException | ClassNotFoundException sce) {
                 sce.printStackTrace();
             }
         }

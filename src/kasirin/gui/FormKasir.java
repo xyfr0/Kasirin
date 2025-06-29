@@ -43,7 +43,7 @@ public class FormKasir extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        addBtn = new javax.swing.JButton();
+        openTransactionBtn = new javax.swing.JButton();
         jScrollPane = new javax.swing.JScrollPane();
         tableTransaksi = new javax.swing.JTable();
         btnOrder = new javax.swing.JButton();
@@ -57,10 +57,10 @@ public class FormKasir extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/kasirin/assets/transfer-money_12749045.png"))); // NOI18N
         jLabel1.setText("REKAP CEPAT");
 
-        addBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/kasirin/assets/windows_13129897.png"))); // NOI18N
-        addBtn.addActionListener(new java.awt.event.ActionListener() {
+        openTransactionBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/kasirin/assets/windows_13129897.png"))); // NOI18N
+        openTransactionBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addBtnActionPerformed(evt);
+                openTransactionBtnActionPerformed(evt);
             }
         });
 
@@ -97,7 +97,7 @@ public class FormKasir extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(addBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
+                            .addComponent(openTransactionBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
                             .addComponent(btnOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 638, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -111,7 +111,7 @@ public class FormKasir extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(addBtn)
+                        .addComponent(openTransactionBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnOrder))
                     .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -133,38 +133,11 @@ public class FormKasir extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
+    private void openTransactionBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openTransactionBtnActionPerformed
         FormTambah inputForm = new FormTambah();
         inputForm.setVisible(true);
         this.dispose();
-//        if (inputForm.isSubmitted()) {
-//                    String order = inputForm.getOrder();
-//                    String transaksi = inputForm.getTransaksi();
-//                    String quantity = inputForm.getQuantity();
-//                    String operator = inputForm.getOperator();
-//                    String subtotal = inputForm.getSubtotal();
-//
-//                    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-//                    model.addRow(new Object[]{
-//                        model.getRowCount() + 1, // Atau gunakan ID yang sebenarnya dari database jika ada
-//                        order, transaksi, quantity, operator, subtotal
-//                    });
-//                    JOptionPane.showMessageDialog(this, "Data berhasil ditambahkan!");
-//                } 
-//        String order = inputForm.getOrder();
-//        String transaksi = inputForm.getTransaksi();
-//        String quantity = inputForm.getQuantity();
-//        String operator = inputForm.getOperator();
-//        String subtotal = inputForm.getSubtotal();
-//    // dst...
-//
-//    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-//    model.addRow(new Object[]{
-//        model.getRowCount() + 1,
-//        order, transaksi, quantity, operator,subtotal
-//    });
-
-    }//GEN-LAST:event_addBtnActionPerformed
+    }//GEN-LAST:event_openTransactionBtnActionPerformed
 
     private void btnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderActionPerformed
         FormOrder order = new FormOrder();
@@ -208,11 +181,11 @@ public class FormKasir extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addBtn;
     private javax.swing.JButton btnOrder;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane;
+    private javax.swing.JButton openTransactionBtn;
     private javax.swing.JTable tableTransaksi;
     // End of variables declaration//GEN-END:variables
 }

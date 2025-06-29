@@ -94,5 +94,15 @@ public class Product {
         return false;
     }
     
+    public String generateProductId(Connection conn) throws SQLException {
+        try (PreparedStatement ps = conn.prepareStatement("SELECT MAX(operator_id) FROM Operator WHERE operator_id LIKE 'P%'"); ResultSet rs = ps.executeQuery()) {
+            if (rs.next() && rs.getString(1) != null) {
+                int num = Integer.parseInt(rs.getString(1).substring(1));
+                return String.format("O%04d", num + 1);
+            }
+            return "P0001";
+        }
+    }   
+    
     
 }

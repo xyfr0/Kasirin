@@ -16,45 +16,38 @@ import kasirin.util.Koneksi;
  *
  * @author jabba
  */
-public class Operator {
-    private String operatorID;
-    private String operatorName;
-    private String operatorGender;
+public class User {
+    private String userID;
+    private String fullname;    
     private String status;
-    private String password;
-    private String role;
     private String username;
+    private String password;
+    private String role;    
     private LocalDate registered_at;
-    private LocalTime updated_at;
+    private LocalDate updated_at;
 
-    public Operator(String operatorID, String operatorName, String operatorGender) {
-        this.operatorID = operatorID;
-        this.operatorName = operatorName;
-        this.operatorGender = operatorGender;
+
+    public User() {
+    }
+    
+    
+
+    
+
+    public String getUserID() {
+        return userID;
     }
 
-    public String getOperatorID() {
-        return operatorID;
+    public void setUserID(String operatorID) {
+        this.userID = operatorID;
     }
 
-    public void setOperatorID(String operatorID) {
-        this.operatorID = operatorID;
+    public String getFullname() {
+        return fullname;
     }
 
-    public String getOperatorName() {
-        return operatorName;
-    }
-
-    public void setOperatorName(String operatorName) {
-        this.operatorName = operatorName;
-    }
-
-    public String getOperatorGender() {
-        return operatorGender;
-    }
-
-    public void setOperatorGender(String operatorGender) {
-        this.operatorGender = operatorGender;
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 
     public String getStatus() {
@@ -97,29 +90,28 @@ public class Operator {
         this.registered_at = registered_at;
     }
 
-    public LocalTime getUpdated_at() {
+    public LocalDate getUpdated_at() {
         return updated_at;
     }
 
-    public void setUpdated_at(LocalTime updated_at) {
+    public void setUpdated_at(LocalDate updated_at) {
         this.updated_at = updated_at;
     }
     
     
     
-    public void addOperator(Operator operator){
-        if (isIdAvailable(operator.getOperatorID())) {
+    public void addUser(User user){
+        if (isIdAvailable(user.getUserID())) {
             try (Connection conn = Koneksi.connect(); PreparedStatement ps = conn.prepareStatement("USE KASIRIN INSERT INTO Operator "
                     + "(operator_id, operator_name, operator_gender, status, password, role, username, registered_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)")) {                
-                ps.setString(1, operator.getOperatorID());
-                ps.setString(2, operator.getOperatorName());
-                ps.setString(3, operator.getOperatorGender());
-                ps.setString(4, operator.getStatus());
-                ps.setString(5, operator.getPassword());
-                ps.setString(6, operator.getRole());
-                ps.setString(7, operator.getUsername());
-                ps.setObject(8, operator.getRegistered_at());
-                ps.setObject(9, operator.getUpdated_at());
+                ps.setString(1, user.getUserID());
+                ps.setString(2, user.getFullname());                
+                ps.setString(4, user.getStatus());
+                ps.setString(5, user.getPassword());
+                ps.setString(6, user.getRole());
+                ps.setString(7, user.getUsername());
+                ps.setObject(8, user.getRegistered_at());
+                ps.setObject(9, user.getUpdated_at());
                 ps.executeUpdate();
             }catch( SQLException | ClassNotFoundException sce){
                 sce.getMessage();
@@ -129,7 +121,7 @@ public class Operator {
 
     public boolean isIdAvailable(String id) {
         try (Connection conn = Koneksi.connect(); PreparedStatement ps = conn.prepareStatement("USE KASIRIN "
-                + "SELECT COUNT(*) FROM Operator WHERE shift_id = ?")) {
+                + "SELECT COUNT(*) FROM Operator WHERE user_id = ?")) {
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -143,12 +135,12 @@ public class Operator {
     }
 
     public String generateOperatorId(Connection conn) throws SQLException {
-        try (PreparedStatement ps = conn.prepareStatement("SELECT MAX(operator_id) FROM Operator WHERE operator_id LIKE 'O%'"); ResultSet rs = ps.executeQuery()) {
+        try (PreparedStatement ps = conn.prepareStatement("SELECT MAX(user_id) FROM Users WHERE user_id LIKE 'U%'"); ResultSet rs = ps.executeQuery()) {
             if (rs.next() && rs.getString(1) != null) {
                 int num = Integer.parseInt(rs.getString(1).substring(1));
-                return String.format("O%04d", num + 1);
+                return String.format("U%04d", num + 1);
             }
-            return "O0001";
+            return "U0001";
         }
     }
     

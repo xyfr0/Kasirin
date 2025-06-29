@@ -1,6 +1,7 @@
 package kasirin.gui;
 
 
+import kasirin.gui.Operator.FormOperator;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.*;
@@ -48,7 +49,7 @@ public class FormKasirAdmin extends javax.swing.JFrame {
         tableTransaksi = new javax.swing.JTable();
         btnOrder = new javax.swing.JButton();
         bOperator = new javax.swing.JButton();
-        bOperator1 = new javax.swing.JButton();
+        bShift = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -96,11 +97,11 @@ public class FormKasirAdmin extends javax.swing.JFrame {
             }
         });
 
-        bOperator1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/kasirin/assets/time-left.png"))); // NOI18N
-        bOperator1.setText("Shift");
-        bOperator1.addActionListener(new java.awt.event.ActionListener() {
+        bShift.setIcon(new javax.swing.ImageIcon(getClass().getResource("/kasirin/assets/time-left.png"))); // NOI18N
+        bShift.setText("Shift");
+        bShift.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bOperator1ActionPerformed(evt);
+                bShiftActionPerformed(evt);
             }
         });
 
@@ -120,7 +121,7 @@ public class FormKasirAdmin extends javax.swing.JFrame {
                             .addComponent(addBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(bOperator, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(bOperator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(bShift, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 638, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))))
@@ -139,7 +140,7 @@ public class FormKasirAdmin extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(bOperator, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bOperator1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(bShift, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
@@ -161,8 +162,7 @@ public class FormKasirAdmin extends javax.swing.JFrame {
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         FormTambah inputForm = new FormTambah();
-        inputForm.setVisible(true);
-        this.dispose();
+        inputForm.setVisible(true);        
 //        if (inputForm.isSubmitted()) {
 //                    String order = inputForm.getOrder();
 //                    String transaksi = inputForm.getTransaksi();
@@ -194,19 +194,17 @@ public class FormKasirAdmin extends javax.swing.JFrame {
 
     private void btnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderActionPerformed
         FormOrder order = new FormOrder();
-        order.setVisible(true);
-        this.dispose();
+        order.setVisible(true);        
     }//GEN-LAST:event_btnOrderActionPerformed
 
     private void bOperatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bOperatorActionPerformed
         FormOperator x = new FormOperator();
-        x.setVisible(true);
-        this.dispose();
+        x.setVisible(true);        
     }//GEN-LAST:event_bOperatorActionPerformed
 
-    private void bOperator1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bOperator1ActionPerformed
+    private void bShiftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bShiftActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_bOperator1ActionPerformed
+    }//GEN-LAST:event_bShiftActionPerformed
 
     /**
      * @param args the command line arguments
@@ -247,7 +245,7 @@ public class FormKasirAdmin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBtn;
     private javax.swing.JButton bOperator;
-    private javax.swing.JButton bOperator1;
+    private javax.swing.JButton bShift;
     private javax.swing.JButton btnOrder;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

@@ -34,10 +34,10 @@ public class FormLogin extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         tUsername = new javax.swing.JTextField();
-        tPassword = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         bLogin = new javax.swing.JButton();
+        jPasswordField1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -51,12 +51,6 @@ public class FormLogin extends javax.swing.JFrame {
         tUsername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tUsernameActionPerformed(evt);
-            }
-        });
-
-        tPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tPasswordActionPerformed(evt);
             }
         });
 
@@ -87,11 +81,11 @@ public class FormLogin extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(tUsername)
-                    .addComponent(tPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(235, Short.MAX_VALUE))
+                    .addComponent(tUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
+                    .addComponent(jPasswordField1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(346, Short.MAX_VALUE)
                 .addComponent(bLogin)
                 .addGap(333, 333, 333))
         );
@@ -110,8 +104,8 @@ public class FormLogin extends javax.swing.JFrame {
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))))
+                            .addComponent(jLabel3)
+                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addComponent(bLogin)
                 .addGap(198, 198, 198))
         );
@@ -133,30 +127,20 @@ public class FormLogin extends javax.swing.JFrame {
 
     private void bLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLoginActionPerformed
         String username = tUsername.getText();
-        String password = tPassword.getText();
+        String password = jPasswordField1.getText();
 
         try (Connection conn = Koneksi.connect()) {
-            String sql = "SELECT * FROM Operator WHERE username=? AND password COLLATE Latin1_General_CS_AS =?";
+            String sql = "SELECT * FROM Users WHERE username COLLATE Latin1_General_CS_AS =? AND password COLLATE Latin1_General_CS_AS =?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, username);
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                String role = rs.getString("role").toLowerCase();
-                if (role.equalsIgnoreCase("admin")) {
-                    JOptionPane.showMessageDialog(this, "Login Successful!");
-                    FormKasirAdmin x = new FormKasirAdmin();
-                    x.setVisible(true);
-                    this.dispose();
-                } else if (role.equalsIgnoreCase("operator")) {
-                    LocalTime now = LocalTime.now();                    
-                    JOptionPane.showMessageDialog(this, "Login Successful!");
-                    FormKasir x = new FormKasir();
-                    x.setVisible(true);
-                    this.dispose();
-                }
+                FormKasir x = new FormKasir();
+                x.setVisible(true);
+                this.dispose();
             } else {
-                JOptionPane.showMessageDialog(this, "Email Atau Password Salah!");
+                JOptionPane.showMessageDialog(this, "Username Atau Password Salah!");
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Database Error " + ex.getMessage());
@@ -169,10 +153,6 @@ public class FormLogin extends javax.swing.JFrame {
     private void tUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tUsernameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tUsernameActionPerformed
-
-    private void tPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tPasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tPasswordActionPerformed
 
     /**
      * @param args the command line arguments
@@ -215,7 +195,7 @@ public class FormLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField tPassword;
+    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField tUsername;
     // End of variables declaration//GEN-END:variables
 }

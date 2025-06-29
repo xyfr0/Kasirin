@@ -3,6 +3,8 @@ package kasirin.gui;
 
 import javax.swing.JOptionPane;
 import java.sql.*;
+import javax.swing.table.DefaultTableModel;
+import kasirin.util.Koneksi;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -14,40 +16,16 @@ import java.sql.*;
  * @author ASUS
  */
 public class FormTambah extends javax.swing.JFrame {
-    
-    Connection koneksi;
-    Statement st;
-    ResultSet rs;
-    Boolean find = false;
-    private String order, transaksi, quantity, operator, subtotal;
+    DefaultTableModel dtm;
+  
     
     /**
      * Creates new form FormTambah
      */
     
-    public FormTambah() {
-        try {
-            
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Gagal Koneksi ke DB" + e.getMessage());
-        }
         
-        initComponents();
-    }
     
-    private void kosongkan(){
-        txtSubtotal.setText("");
-        txtOrderQty.setText("");
-        txtOperator.setSelectedIndex(0);
-        btnSubmit.setEnabled(true);
-        btnDelete.setEnabled(false);
-    }
-    
-    public String getOrder() { return order; }
-    public String getTransaksi() { return transaksi; }
-    public String getQuantity() { return quantity; }
-    public String getOperator() { return operator; }
-    public String getSubtotal() { return subtotal; }
+
     
 
     /**
@@ -61,17 +39,16 @@ public class FormTambah extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtSubtotal = new javax.swing.JTextField();
         btnCancel = new javax.swing.JButton();
         btnSubmit = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
         btnDelete = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        txtOrderQty = new javax.swing.JTextField();
-        tProduk = new javax.swing.JComboBox<>();
-        jLabel2 = new javax.swing.JLabel();
-        txtCust = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        orderTable = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        searchTable = new javax.swing.JTable();
+        searchField = new javax.swing.JTextField();
+        btnSearch = new javax.swing.JButton();
+        btnAdd = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(300, 400));
@@ -101,13 +78,6 @@ public class FormTambah extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/kasirin/assets/windows_13129897.png"))); // NOI18N
         jLabel1.setText("TRANSACTION");
 
-        txtSubtotal.setEditable(false);
-        txtSubtotal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSubtotalActionPerformed(evt);
-            }
-        });
-
         btnCancel.setText("Cancel");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -115,14 +85,12 @@ public class FormTambah extends javax.swing.JFrame {
             }
         });
 
-        btnSubmit.setText("Add");
+        btnSubmit.setText("Order");
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSubmitActionPerformed(evt);
             }
         });
-
-        jLabel6.setText("Total");
 
         btnDelete.setText("Delete");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -131,19 +99,51 @@ public class FormTambah extends javax.swing.JFrame {
             }
         });
 
-        jLabel7.setText("Order Produk :");
+        orderTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Product Name", "Price", "Quantity", "Subtotal"
+            }
+        ));
+        jScrollPane1.setViewportView(orderTable);
 
-        jLabel8.setText("Order Quantity");
+        searchTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(searchTable);
 
-        txtOrderQty.addActionListener(new java.awt.event.ActionListener() {
+        searchField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtOrderQtyActionPerformed(evt);
+                searchFieldActionPerformed(evt);
             }
         });
 
-        tProduk.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        btnSearch.setText("Search");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
 
-        jLabel2.setText("Customer name :");
+        btnAdd.setText("Add");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -153,23 +153,22 @@ public class FormTambah extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtOrderQty)
-                    .addComponent(txtSubtotal)
-                    .addComponent(tProduk, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtCust)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 746, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnSubmit)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnDelete)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancel))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel2)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnSubmit)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnAdd)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnDelete)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnCancel)))
-                        .addGap(0, 506, Short.MAX_VALUE)))
+                                .addComponent(btnSearch))
+                            .addComponent(searchField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -177,23 +176,18 @@ public class FormTambah extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnSearch)
+                            .addComponent(btnAdd))))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tProduk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtOrderQty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtCust, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 231, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSubmit)
                     .addComponent(btnDelete)
@@ -216,19 +210,8 @@ public class FormTambah extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtSubtotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSubtotalActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSubtotalActionPerformed
-
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
-        try {
-            rs.moveToInsertRow();
-            //rs.updateString(); pas udah buat DB nanti baru modif ini (kolom, "variable")
-            rs.insertRow();
-            kosongkan(); //buat kosongin inputan
-        } catch (Exception e){
-            JOptionPane.showMessageDialog(null, "Gagal terhubung " + e.getMessage());
-        }    
+  
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
@@ -238,18 +221,7 @@ public class FormTambah extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        try {
-            rs.moveToCurrentRow();
-            int confirm = JOptionPane.showConfirmDialog(
-                this,
-                "Yakin ingin menghapus baris ini?",
-                "Konfirmasi Hapus",
-                JOptionPane.YES_NO_OPTION
-            );
-            rs.deleteRow();
-        } catch (Exception e){
-            
-        }
+
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
@@ -265,13 +237,74 @@ public class FormTambah extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel1ComponentAdded
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        kosongkan();
+        
     }//GEN-LAST:event_formWindowOpened
 
-    private void txtOrderQtyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOrderQtyActionPerformed
+    private void searchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtOrderQtyActionPerformed
+    }//GEN-LAST:event_searchFieldActionPerformed
 
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        // TODO add your handling code here:
+        String keyword = searchField.getText();        
+        
+        try(Connection conn = Koneksi.connect(); PreparedStatement ps = conn.prepareStatement("USE KASIRIN SELECT * FROM Product WHERE product_name LIKE ?")){
+            ps.setString(1, "%" + keyword + "%");
+            ResultSet rs = ps.executeQuery();
+            
+            dtm.setRowCount(0);
+            
+            while(rs.next()){
+                dtm.addRow(new Object[]{
+                    rs.getString("product_id"),
+                    rs.getString("product_name"),
+                    rs.getDouble("price")
+                });
+            }
+        }catch (SQLException | ClassNotFoundException se){
+            se.getMessage();
+            JOptionPane.showMessageDialog(this, "Database error!");
+        }        
+    }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel searchResult = (DefaultTableModel) searchTable.getModel();
+        DefaultTableModel orderResult = (DefaultTableModel) orderTable.getModel();
+        
+        
+        int selectedRow = searchTable.getSelectedRow();
+        if (selectedRow != -1){
+            Object id = searchResult.getValueAt(selectedRow, 0);
+            Object name = searchResult.getValueAt(selectedRow, 1);
+            Object priceObj = searchResult.getValueAt(selectedRow, 2);
+            double price = Double.parseDouble(priceObj.toString());
+            
+            boolean exists = false;
+            for(int i = 0; i < orderResult.getRowCount(); i++){
+                if(orderResult.getValueAt(i, 0).equals(id)){
+                    int currentQty = Integer.parseInt(orderResult.getValueAt(i, 3).toString());
+                    int newQty = currentQty+1;
+                    double newSubtotal = newQty * price;
+                    
+                    orderResult.setValueAt(newQty, i, 2);
+                    orderResult.setValueAt(newSubtotal, i, 3);
+                    
+                    exists = true;
+                    break;
+                }
+            }
+            
+            if(!exists){
+                int qty = 1;
+                double subtotal = price * qty;  
+                orderResult.addRow(new Object[]{name, price, qty, subtotal});
+            }
+        } else{
+            JOptionPane.showMessageDialog(null, "Mohon pilih produk.");
+        }
+    }//GEN-LAST:event_btnAddActionPerformed
+        
     
 
 
@@ -311,18 +344,17 @@ public class FormTambah extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnSubmit;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JComboBox<String> tProduk;
-    private javax.swing.JTextField txtCust;
-    private javax.swing.JTextField txtOrderQty;
-    private javax.swing.JTextField txtSubtotal;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable orderTable;
+    private javax.swing.JTextField searchField;
+    private javax.swing.JTable searchTable;
     // End of variables declaration//GEN-END:variables
 }
