@@ -5,6 +5,7 @@
 package kasirin.gui;
 
 import java.sql.*;
+import java.time.LocalTime;
 import javax.swing.JOptionPane;
 import kasirin.util.Koneksi;
 
@@ -148,6 +149,7 @@ public class FormLogin extends javax.swing.JFrame {
                     x.setVisible(true);
                     this.dispose();
                 } else if (role.equalsIgnoreCase("operator")) {
+                    LocalTime now = LocalTime.now();                    
                     JOptionPane.showMessageDialog(this, "Login Successful!");
                     FormKasir x = new FormKasir();
                     x.setVisible(true);

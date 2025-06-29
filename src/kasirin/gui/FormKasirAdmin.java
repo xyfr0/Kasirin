@@ -48,6 +48,7 @@ public class FormKasirAdmin extends javax.swing.JFrame {
         tableTransaksi = new javax.swing.JTable();
         btnOrder = new javax.swing.JButton();
         bOperator = new javax.swing.JButton();
+        bOperator1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -59,6 +60,7 @@ public class FormKasirAdmin extends javax.swing.JFrame {
         jLabel1.setText("REKAP CEPAT");
 
         addBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/kasirin/assets/windows_13129897.png"))); // NOI18N
+        addBtn.setText("Transaction");
         addBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addBtnActionPerformed(evt);
@@ -79,6 +81,7 @@ public class FormKasirAdmin extends javax.swing.JFrame {
         jScrollPane.setViewportView(tableTransaksi);
 
         btnOrder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/kasirin/assets/folder_6594791 (1).png"))); // NOI18N
+        btnOrder.setText("Order");
         btnOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnOrderActionPerformed(evt);
@@ -86,9 +89,18 @@ public class FormKasirAdmin extends javax.swing.JFrame {
         });
 
         bOperator.setIcon(new javax.swing.ImageIcon(getClass().getResource("/kasirin/assets/person_12118688.png"))); // NOI18N
+        bOperator.setText("Operator");
         bOperator.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bOperatorActionPerformed(evt);
+            }
+        });
+
+        bOperator1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/kasirin/assets/time-left.png"))); // NOI18N
+        bOperator1.setText("Shift");
+        bOperator1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bOperator1ActionPerformed(evt);
             }
         });
 
@@ -105,9 +117,10 @@ public class FormKasirAdmin extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(addBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
+                            .addComponent(addBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(bOperator, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(bOperator, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bOperator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 638, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))))
@@ -124,7 +137,9 @@ public class FormKasirAdmin extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnOrder)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bOperator, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(bOperator, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bOperator1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
@@ -189,6 +204,10 @@ public class FormKasirAdmin extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_bOperatorActionPerformed
 
+    private void bOperator1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bOperator1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bOperator1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -228,6 +247,7 @@ public class FormKasirAdmin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBtn;
     private javax.swing.JButton bOperator;
+    private javax.swing.JButton bOperator1;
     private javax.swing.JButton btnOrder;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

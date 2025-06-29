@@ -163,7 +163,7 @@ public class FormOperator extends javax.swing.JFrame {
     }//GEN-LAST:event_bAddActionPerformed
 
     private void bUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bUpdateActionPerformed
-        FormUpdateOperator x = new FormUpdateOperator();        
+        FormShift x = new FormShift();        
         x.setVisible(true);
         
     }//GEN-LAST:event_bUpdateActionPerformed
