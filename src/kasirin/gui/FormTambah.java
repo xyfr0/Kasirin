@@ -1,50 +1,59 @@
 package kasirin.gui;
 
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import java.sql.*;
-import javax.swing.DefaultComboBoxModel;
-import kasirin.dao.*;
-import kasirin.model.Transaction;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
+
 /**
  *
  * @author ASUS
  */
 public class FormTambah extends javax.swing.JFrame {
-
-    ItemDAO itemDAO = new ItemDAO();
-    OperatorDAO operatorDAO = new OperatorDAO();
-
+    
+    Connection koneksi;
+    Statement st;
     ResultSet rs;
-
+    Boolean find = false;
+    private String order, transaksi, quantity, operator, subtotal;
+    
     /**
      * Creates new form FormTambah
      */
+    
     public FormTambah() {
         try {
-
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Gagal Koneksi ke DB" + e.getMessage());
         }
-
+        
         initComponents();
     }
-
-    private void kosongkan() {
-
-        txtOrderName.setText("");
-
+    
+    private void kosongkan(){
+        txtSubtotal.setText("");
+        txtOrderQty.setText("");
         txtOperator.setSelectedIndex(0);
-
-        btnAdd.setEnabled(true);
-        btnChange.setEnabled(false);
+        btnSubmit.setEnabled(true);
         btnDelete.setEnabled(false);
-        txtOrderName.requestFocus();
     }
+    
+    public String getOrder() { return order; }
+    public String getTransaksi() { return transaksi; }
+    public String getQuantity() { return quantity; }
+    public String getOperator() { return operator; }
+    public String getSubtotal() { return subtotal; }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -58,21 +67,18 @@ public class FormTambah extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        txtSubtotal = new javax.swing.JTextField();
+        btnCancel = new javax.swing.JButton();
+        btnSubmit = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         txtOperator = new javax.swing.JComboBox<>();
-        jLabel7 = new javax.swing.JLabel();
-        txtOrderName = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        txtShift = new javax.swing.JComboBox<>();
-        txtItem = new javax.swing.JComboBox<>();
-        jLabel3 = new javax.swing.JLabel();
-        jQuantity = new javax.swing.JTextField();
-        jPanel2 = new javax.swing.JPanel();
-        btnAdd = new javax.swing.JButton();
-        btnChange = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
-        btnCancel = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        txtOrderQty = new javax.swing.JTextField();
+        tProduk = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        txtCust = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(300, 400));
@@ -100,65 +106,14 @@ public class FormTambah extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/kasirin/assets/windows_13129897.png"))); // NOI18N
-        jLabel1.setText("Tambah Data");
+        jLabel1.setText("TRANSACTION");
 
         jLabel5.setText("Operator:");
 
-        txtOperator.setModel(new DefaultComboBoxModel<String>(operatorDAO.getOperatorNames().toArray(new String[operatorDAO.getOperatorNames().size()])));
-        txtOperator.addActionListener(new java.awt.event.ActionListener() {
+        txtSubtotal.setEditable(false);
+        txtSubtotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtOperatorActionPerformed(evt);
-            }
-        });
-
-        jLabel7.setText("Name :");
-
-        txtOrderName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtOrderNameActionPerformed(evt);
-            }
-        });
-
-        jLabel8.setText("Item :");
-
-        jLabel2.setText("Shift :");
-
-        txtShift.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pagi", "Malam" }));
-        txtShift.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtShiftActionPerformed(evt);
-            }
-        });
-
-        txtItem.setModel(new DefaultComboBoxModel<String>(itemDAO.getItemNames().toArray(new String[itemDAO.getItemNames().size()])));
-        txtItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtItemActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setText("Quantity");
-
-        jPanel2.setBackground(new java.awt.Color(204, 255, 204));
-
-        btnAdd.setText("Add");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
-            }
-        });
-
-        btnChange.setText("Change");
-        btnChange.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnChangeActionPerformed(evt);
-            }
-        });
-
-        btnDelete.setText("Delete");
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
+                txtSubtotalActionPerformed(evt);
             }
         });
 
@@ -169,32 +124,37 @@ public class FormTambah extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnAdd)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnChange)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnDelete)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCancel)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAdd)
-                    .addComponent(btnChange)
-                    .addComponent(btnDelete)
-                    .addComponent(btnCancel))
-                .addContainerGap(11, Short.MAX_VALUE))
-        );
+        btnSubmit.setText("Add");
+        btnSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmitActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Total");
+
+        txtOperator.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--", "OP001 -- Alex", "OP002 -- Andi", "OP003 -- Steve" }));
+
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Order Produk :");
+
+        jLabel8.setText("Order Quantity");
+
+        txtOrderQty.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtOrderQtyActionPerformed(evt);
+            }
+        });
+
+        tProduk.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel2.setText("Customer name :");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -206,54 +166,56 @@ public class FormTambah extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtOrderName, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtItem, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jQuantity)
-                    .addComponent(txtShift, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtOrderQty)
+                    .addComponent(txtSubtotal)
                     .addComponent(txtOperator, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel3)
-                        .addComponent(jLabel2)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel6))
-                        .addComponent(jLabel5)))
+                    .addComponent(tProduk, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtCust)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel2)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnSubmit)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnDelete)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnCancel)))
+                        .addGap(0, 506, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtOrderName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tProduk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtOrderQty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtShift, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtCust, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtOperator, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(jLabel6))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 171, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSubmit)
+                    .addComponent(btnDelete)
+                    .addComponent(btnCancel))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -268,35 +230,42 @@ public class FormTambah extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+    private void txtSubtotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSubtotalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSubtotalActionPerformed
 
-    }//GEN-LAST:event_btnAddActionPerformed
+    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
+        try {
+            rs.moveToInsertRow();
+            //rs.updateString(); pas udah buat DB nanti baru modif ini (kolom, "variable")
+            rs.insertRow();
+            kosongkan(); //buat kosongin inputan
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(null, "Gagal terhubung " + e.getMessage());
+        }    
+    }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-
-        dispose();
+        FormKasir kasir = new FormKasir();
+        kasir.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
-    private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
-        //nunggu Database
-
-    }//GEN-LAST:event_btnChangeActionPerformed
-
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        Transaction transaction;
         try {
             rs.moveToCurrentRow();
             int confirm = JOptionPane.showConfirmDialog(
-                    this,
-                    "Yakin ingin menghapus baris ini?",
-                    "Konfirmasi Hapus",
-                    JOptionPane.YES_NO_OPTION
+                this,
+                "Yakin ingin menghapus baris ini?",
+                "Konfirmasi Hapus",
+                JOptionPane.YES_NO_OPTION
             );
             rs.deleteRow();
-        } catch (Exception e) {
-
+        } catch (Exception e){
+            
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
@@ -316,21 +285,12 @@ public class FormTambah extends javax.swing.JFrame {
         kosongkan();
     }//GEN-LAST:event_formWindowOpened
 
-    private void txtOrderNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOrderNameActionPerformed
+    private void txtOrderQtyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOrderQtyActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtOrderNameActionPerformed
+    }//GEN-LAST:event_txtOrderQtyActionPerformed
 
-    private void txtShiftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtShiftActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtShiftActionPerformed
+    
 
-    private void txtOperatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOperatorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtOperatorActionPerformed
-
-    private void txtItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtItemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -368,23 +328,20 @@ public class FormTambah extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCancel;
-    private javax.swing.JButton btnChange;
     private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnSubmit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jQuantity;
-    private javax.swing.JComboBox<String> txtItem;
+    private javax.swing.JComboBox<String> tProduk;
+    private javax.swing.JTextField txtCust;
     private javax.swing.JComboBox<String> txtOperator;
-    private javax.swing.JTextField txtOrderName;
-    private javax.swing.JComboBox<String> txtShift;
+    private javax.swing.JTextField txtOrderQty;
+    private javax.swing.JTextField txtSubtotal;
     // End of variables declaration//GEN-END:variables
 }

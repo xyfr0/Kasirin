@@ -9,15 +9,6 @@ package kasirin;
  *
  * @author ASUS
  */
-public class Kasirin {    
-    
-    public static void main(String[] args) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new kasirin.gui.FormLogin().setVisible(true);
-            }
-        });
-        
-    }
+public class Kasirin {
     
 }
