@@ -3,13 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/Kuliah/04%20-%20Basis%20Data/Tugas/Kasirin/src/kasirin/gui/shift/FormShift.java</file>
+            <file>file:/D:/Kuliah/04%20-%20Basis%20Data/Tugas/Kasirin/src/kasirin/gui/shift/FormAddShift.java</file>
+            <file>file:/D:/Kuliah/04%20-%20Basis%20Data/Tugas/Kasirin/src/kasirin/model/Shift.java</file>
             <file>file:/D:/Kuliah/04%20-%20Basis%20Data/Tugas/Kasirin/src/kasirin/gui/FormKasirAdmin.java</file>
+            <file>file:/D:/Kuliah/04%20-%20Basis%20Data/Tugas/Kasirin/src/kasirin/gui/shiftTable.java</file>
+            <file>file:/D:/Kuliah/04%20-%20Basis%20Data/Tugas/Kasirin/src/kasirin/gui/FormTambah.java</file>
+            <file>file:/D:/Kuliah/04%20-%20Basis%20Data/Tugas/Kasirin/src/kasirin/gui/Operator/FormOperator.java</file>
             <file>file:/D:/Kuliah/04%20-%20Basis%20Data/Tugas/Kasirin/src/kasirin/gui/Operator/FormAddOperator.java</file>
-            <file>file:/D:/Kuliah/04%20-%20Basis%20Data/Tugas/Kasirin/src/kasirin/model/User.java</file>
-            <file>file:/D:/Kuliah/04%20-%20Basis%20Data/Tugas/Kasirin/src/kasirin/util/Koneksi.java</file>
-            <file>file:/D:/Kuliah/04%20-%20Basis%20Data/Tugas/Kasirin/src/kasirin/gui/FormLogin.java</file>
-            <file>file:/D:/Kuliah/04%20-%20Basis%20Data/Tugas/Kasirin/src/kasirin/gui/FormOrder.java</file>
-            <file>file:/D:/Kuliah/04%20-%20Basis%20Data/Tugas/Kasirin/src/kasirin/gui/FormShift.java</file>
         </group>
     </open-files>
 </project-private>

@@ -4,8 +4,7 @@
  */
 package kasirin.gui.Operator;
 
-import kasirin.gui.FormKasir;
-import kasirin.gui.FormShift;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,7 +15,10 @@ public class FormOperator extends javax.swing.JFrame {
     /**
      * Creates new form FormOperator
      */
-    public FormOperator() {
+    public FormOperator() {        
+        DefaultTableModel dtm = (DefaultTableModel) operatorTable.getModel();        
+        dtm.getDataVector().removeAllElements();
+        
         initComponents();
     }
 
@@ -32,11 +34,11 @@ public class FormOperator extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        operatorTable = new javax.swing.JTable();
         bAdd = new javax.swing.JButton();
         bUpdate = new javax.swing.JButton();
         bDelete = new javax.swing.JButton();
-        bHome = new javax.swing.JButton();
+        bClose = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,7 +49,7 @@ public class FormOperator extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/kasirin/assets/person_12118688.png"))); // NOI18N
         jLabel1.setText("OPERATOR");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        operatorTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -58,7 +60,7 @@ public class FormOperator extends javax.swing.JFrame {
                 "ID", "Name", "Gender", "Status", "Date Register", "Date Updated"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(operatorTable);
 
         bAdd.setFont(new java.awt.Font("Tw Cen MT", 1, 12)); // NOI18N
         bAdd.setText("Add");
@@ -79,11 +81,11 @@ public class FormOperator extends javax.swing.JFrame {
         bDelete.setFont(new java.awt.Font("Tw Cen MT", 1, 12)); // NOI18N
         bDelete.setText("Delete");
 
-        bHome.setFont(new java.awt.Font("Tw Cen MT", 1, 12)); // NOI18N
-        bHome.setText("Close");
-        bHome.addActionListener(new java.awt.event.ActionListener() {
+        bClose.setFont(new java.awt.Font("Tw Cen MT", 1, 12)); // NOI18N
+        bClose.setText("Close");
+        bClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bHomeActionPerformed(evt);
+                bCloseActionPerformed(evt);
             }
         });
 
@@ -94,17 +96,17 @@ public class FormOperator extends javax.swing.JFrame {
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 734, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bAdd)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bUpdate)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bDelete)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bHome)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 734, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(bAdd)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bUpdate)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bDelete)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bClose)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -116,7 +118,7 @@ public class FormOperator extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bHome)
+                    .addComponent(bClose)
                     .addComponent(bDelete)
                     .addComponent(bUpdate)
                     .addComponent(bAdd))
@@ -138,11 +140,10 @@ public class FormOperator extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void bHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bHomeActionPerformed
+    private void bCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCloseActionPerformed
         
-        FormKasir kasir = new FormKasir();
-        kasir.setVisible(true);
-    }//GEN-LAST:event_bHomeActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_bCloseActionPerformed
 
     private void bAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAddActionPerformed
         FormAddOperator x = new FormAddOperator();
@@ -150,7 +151,7 @@ public class FormOperator extends javax.swing.JFrame {
     }//GEN-LAST:event_bAddActionPerformed
 
     private void bUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bUpdateActionPerformed
-        FormShift x = new FormShift();        
+        FormUpdateOperator x = new FormUpdateOperator();
         x.setVisible(true);
         
     }//GEN-LAST:event_bUpdateActionPerformed
@@ -192,12 +193,12 @@ public class FormOperator extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAdd;
+    private javax.swing.JButton bClose;
     private javax.swing.JButton bDelete;
-    private javax.swing.JButton bHome;
     private javax.swing.JButton bUpdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable operatorTable;
     // End of variables declaration//GEN-END:variables
 }

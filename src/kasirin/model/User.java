@@ -17,16 +17,19 @@ import kasirin.util.Koneksi;
  * @author jabba
  */
 public class User {
-    private String userID;
-    private String fullname;    
-    private String status;
+    private String userID;        
     private String username;
-    private String password;
-    private String role;    
-    private LocalDate registered_at;
-    private LocalDate updated_at;
+    private String password;    
+    private String fullname;
+    private LocalDate registered_at;    
 
-
+    public User(String username, String password, String fullname) {
+        this.username = username;
+        this.password = password;
+        this.fullname = fullname;
+        
+    }
+   
     public User() {
     }
     
@@ -50,14 +53,6 @@ public class User {
         this.fullname = fullname;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -66,13 +61,7 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
-    }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
 
     public String getUsername() {
         return username;
@@ -90,58 +79,22 @@ public class User {
         this.registered_at = registered_at;
     }
 
-    public LocalDate getUpdated_at() {
-        return updated_at;
-    }
 
-    public void setUpdated_at(LocalDate updated_at) {
-        this.updated_at = updated_at;
-    }
     
     
     
-    public void addUser(User user){
-        if (isIdAvailable(user.getUserID())) {
-            try (Connection conn = Koneksi.connect(); PreparedStatement ps = conn.prepareStatement("USE KASIRIN INSERT INTO Operator "
-                    + "(operator_id, operator_name, operator_gender, status, password, role, username, registered_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)")) {                
-                ps.setString(1, user.getUserID());
-                ps.setString(2, user.getFullname());                
-                ps.setString(4, user.getStatus());
-                ps.setString(5, user.getPassword());
-                ps.setString(6, user.getRole());
-                ps.setString(7, user.getUsername());
-                ps.setObject(8, user.getRegistered_at());
-                ps.setObject(9, user.getUpdated_at());
-                ps.executeUpdate();
-            }catch( SQLException | ClassNotFoundException sce){
-                sce.getMessage();
-            }
+    public void addUser(User user, Connection conn, String selectedRole, LocalTime startShift) throws SQLException{
+        String sql = "USE KASIRIN EXEC InsertUser @username=?, @password=?, @fullname=?, @selectedRole=?, @startShift=?";        
+        try (PreparedStatement ps = conn.prepareCall(sql)) {
+            ps.setString(1, user.getUsername());
+            ps.setString(2, user.getPassword());
+            ps.setString(3, user.getFullname());
+            ps.setString(4, selectedRole);
+            ps.setObject(5, startShift);
+            ps.executeUpdate();
         }
     }
-
-    public boolean isIdAvailable(String id) {
-        try (Connection conn = Koneksi.connect(); PreparedStatement ps = conn.prepareStatement("USE KASIRIN "
-                + "SELECT COUNT(*) FROM Operator WHERE user_id = ?")) {
-            ps.setString(1, id);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                int count = rs.getInt(1);
-                return count == 0;
-            }
-        } catch (SQLException | ClassNotFoundException sce) {
-            sce.getMessage();
-        }
-        return false;
-    }
-
-    public String generateOperatorId(Connection conn) throws SQLException {
-        try (PreparedStatement ps = conn.prepareStatement("SELECT MAX(user_id) FROM Users WHERE user_id LIKE 'U%'"); ResultSet rs = ps.executeQuery()) {
-            if (rs.next() && rs.getString(1) != null) {
-                int num = Integer.parseInt(rs.getString(1).substring(1));
-                return String.format("U%04d", num + 1);
-            }
-            return "U0001";
-        }
-    }
+    
+    
     
 }

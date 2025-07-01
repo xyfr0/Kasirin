@@ -4,9 +4,15 @@
  */
 package kasirin.gui.Operator;
 
-import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import kasirin.model.User;
+import java.sql.*;
+import java.time.LocalTime;
+import java.util.*;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
+import kasirin.model.User;
+import kasirin.util.Koneksi;
 
 /**
  *
@@ -14,9 +20,32 @@ import kasirin.model.User;
  */
 public class FormAddOperator extends javax.swing.JFrame {
 
-    User operator = new User();
+    User user = new User();
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormAddOperator.class.getName());
+
+    public List<String> getShiftList(Connection conn) throws SQLException {
+        List<String> shiftStartList = new ArrayList<>();        
+        String sql = "SELECT FORMAT (shift_start, N'hh\\:mm') + (shift_end, N'hh\\:mm') AS shiftTime FROM Shifts";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            shiftStartList.add(rs.getString("shiftTime"));
+        }
+        return shiftStartList;
+    }
+    
+    public List<String> getOperatorList(Connection conn) throws SQLException {
+        List<String> operatorList = new ArrayList<>();        
+        String sql = "SELECT role_name AS roleName FROM Roles";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            operatorList.add(rs.getString("roleName"));
+        }
+        return operatorList;
+    }    
+    
 
     /**
      * Creates new form FormAddOperator
@@ -24,12 +53,11 @@ public class FormAddOperator extends javax.swing.JFrame {
     public FormAddOperator() {
         initComponents();
     }
-    
-    public void emptyField(){
-        nameField.setText("");             
+
+    public void emptyField() {
+        nameField.setText("");
         usernameField.setText("");
         passwordField.setText("");
-        genderSelect.setSelectedIndex(0);
         roleSelect.setSelectedIndex(0);
     }
 
@@ -47,7 +75,6 @@ public class FormAddOperator extends javax.swing.JFrame {
         jTextField4 = new javax.swing.JTextField();
         usernameField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         addOperatorButton = new javax.swing.JButton();
@@ -56,7 +83,8 @@ public class FormAddOperator extends javax.swing.JFrame {
         passwordField = new javax.swing.JTextField();
         roleSelect = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
-        genderSelect = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
+        roleSelect1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 255, 204));
@@ -72,8 +100,6 @@ public class FormAddOperator extends javax.swing.JFrame {
         jTextField4.setText(" ");
 
         jLabel2.setText("Nama");
-
-        jLabel3.setText("Gender");
 
         jLabel5.setText("Username");
 
@@ -101,11 +127,21 @@ public class FormAddOperator extends javax.swing.JFrame {
             }
         });
 
-        roleSelect.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Operator", "Admin" }));
+        try(Connection conn = Koneksi.connect()){
+            roleSelect.setModel(new DefaultComboBoxModel<>(getOperatorList(conn).toArray(new String[0])));
+        } catch(Exception e){
+            e.getMessage();
+        }
 
         jLabel7.setText("Role");
 
-        genderSelect.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Laki-Laki", "Perempuan" }));
+        jLabel8.setText("Shift");
+
+        try{
+            roleSelect1.setModel(new DefaultComboBoxModel<>(getShiftList(Koneksi.connect()).toArray(new String[0])));
+        }catch(Exception e){
+            e.getMessage();
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -119,17 +155,17 @@ public class FormAddOperator extends javax.swing.JFrame {
                         .addGap(7, 7, 7)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(nameField)
+                                    .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 207, Short.MAX_VALUE)
                                 .addComponent(addOperatorButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(clearButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(closeButton))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(nameField)
-                                    .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.TRAILING)))))
+                                .addComponent(closeButton))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -142,10 +178,10 @@ public class FormAddOperator extends javax.swing.JFrame {
                         .addComponent(jLabel7)
                         .addGap(36, 36, 36)
                         .addComponent(roleSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(genderSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(roleSelect1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -170,8 +206,8 @@ public class FormAddOperator extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(roleSelect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel3)
-                    .addComponent(genderSelect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel8)
+                    .addComponent(roleSelect1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addOperatorButton)
@@ -205,18 +241,14 @@ public class FormAddOperator extends javax.swing.JFrame {
     }//GEN-LAST:event_clearButtonActionPerformed
 
     private void addOperatorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addOperatorButtonActionPerformed
-        if (nameField.getText().equalsIgnoreCase("") || usernameField.getText().equalsIgnoreCase("") || passwordField.getText().equalsIgnoreCase("") || roleSelect.getSelectedItem().equals(" ") || genderSelect.getSelectedItem().equals(" ")) {
+        if (nameField.getText().equalsIgnoreCase("") || usernameField.getText().equalsIgnoreCase("") || passwordField.getText().equalsIgnoreCase("") || roleSelect.getSelectedItem().equals(" ")) {
             JOptionPane.showMessageDialog(this, "Pastikan masukkan seluruh data");
         } else {
-            String id = "O9999";
-            String name = nameField.getText();
-            String status = "Active";
             String username = usernameField.getText();
             String password = passwordField.getText();
-            String role = roleSelect.getSelectedItem().toString();
-            String gender = genderSelect.getSelectedItem().toString();
-            User operatorInput = new User(id, name, gender, status, password, role, username, LocalDate.now(), LocalDate.now());
-            operator.addUser(operator);
+            String fullname = nameField.getText();
+            User userInput = new User(username, password, fullname);
+
             JOptionPane.showMessageDialog(this, "Register Success!");
             emptyField();
         }
@@ -226,6 +258,14 @@ public class FormAddOperator extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_nameFieldActionPerformed
 
+    /**
+     *
+     * @param conn
+     * @return
+     */
+    /**
+     * @param args the command line arguments
+     */
     /**
      * @param args the command line arguments
      */
@@ -246,7 +286,7 @@ public class FormAddOperator extends javax.swing.JFrame {
             logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new FormAddOperator().setVisible(true));
     }
@@ -255,17 +295,17 @@ public class FormAddOperator extends javax.swing.JFrame {
     private javax.swing.JButton addOperatorButton;
     private javax.swing.JButton clearButton;
     private javax.swing.JButton closeButton;
-    private javax.swing.JComboBox<String> genderSelect;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField nameField;
     private javax.swing.JTextField passwordField;
     private javax.swing.JComboBox<String> roleSelect;
+    private javax.swing.JComboBox<String> roleSelect1;
     private javax.swing.JTextField usernameField;
     // End of variables declaration//GEN-END:variables
 }

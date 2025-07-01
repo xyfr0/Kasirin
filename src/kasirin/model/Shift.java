@@ -6,6 +6,8 @@ package kasirin.model;
 
 import java.sql.*;
 import java.time.LocalTime;
+import javax.swing.table.DefaultTableModel;
+import kasirin.gui.shift.FormShift;
 import kasirin.util.Koneksi;
 
 /**
@@ -14,10 +16,21 @@ import kasirin.util.Koneksi;
  */
 public class Shift {
 
-    private String shift_id;
-    private String day;
+    private String shift_id;    
     private LocalTime start_time;
     private LocalTime end_time;
+
+    public Shift(LocalTime start_time, LocalTime end_time) {
+        this.start_time = start_time;
+        this.end_time = end_time;
+    }
+
+    public Shift() {
+    }
+    
+    
+    
+    
 
     public String getShift_id() {
         return shift_id;
@@ -25,15 +38,7 @@ public class Shift {
 
     public void setShift_id(String shift_id) {
         this.shift_id = shift_id;
-    }
-
-    public String getDay() {
-        return day;
-    }
-
-    public void setDay(String day) {
-        this.day = day;
-    }
+    }   
 
     public LocalTime getStart_time() {
         return start_time;
@@ -51,42 +56,30 @@ public class Shift {
         this.end_time = end_time;
     }
 
-    public void addShift(Shift shift) {
-        if (isIdAvailable(shift.getShift_id())) {
-            try (Connection conn = Koneksi.connect(); PreparedStatement ps = conn.prepareStatement("USE KASIRIN INSERT INTO Shift (shift_id, day, start_time, end_time) VALUES (?, ?, ?, ?)")) {
-                ps.setString(1, shift.getShift_id());
-                ps.setObject(2, shift.getDay());
-                ps.setObject(3, shift.getStart_time());
-                ps.setObject(4, shift.getEnd_time());
-                ps.executeUpdate();
-            } catch (SQLException | ClassNotFoundException sce) {
-                sce.printStackTrace();
-            }
+    public void addShift(Shift shift, Connection conn) throws SQLException{
+        String sql = "{call InsertShift(?, ?)}";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setObject(1, shift.getStart_time());
+            ps.setObject(2, shift.getEnd_time());
+            ps.executeUpdate();
         }
     }
-
-    public boolean isIdAvailable(String id) {
-        try (Connection conn = Koneksi.connect(); PreparedStatement ps = conn.prepareStatement("USE KASIRIN "
-                + "SELECT COUNT(*) FROM Shift WHERE shift_id = ?")) {
-            ps.setString(1, id);
+    
+    public void readShiftTable(){
+        DefaultTableModel dtm = (DefaultTableModel) FormShift.getShiftTable().getModel();
+        try (Connection conn = Koneksi.connect(); PreparedStatement ps = conn.prepareStatement("USE KASIRIN SELECT * FROM Shifts")) {
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                int count = rs.getInt(1);
-                return count == 0;
+            while (rs.next()) {
+                int n = 1;
+                String startShiftTime = rs.getTime("shift_start").toString().substring(0, 5);
+                String endShiftTime = rs.getTime("shift_start").toString().substring(0, 5);                                
+                String shiftTime = startShiftTime + " - " + endShiftTime;
+                dtm.addRow(new Object[]{n, shiftTime});
+                n++;
             }
         } catch (SQLException | ClassNotFoundException sce) {
             sce.printStackTrace();
         }
-        return false;
-    }
 
-    public String generateShiftId(Connection conn) throws SQLException {
-        try (PreparedStatement ps = conn.prepareStatement("SELECT MAX(operator_id) FROM Operator WHERE operator_id LIKE 'S%'"); ResultSet rs = ps.executeQuery()) {
-            if (rs.next() && rs.getString(1) != null) {
-                int num = Integer.parseInt(rs.getString(1).substring(1));
-                return String.format("S%04d", num + 1);
-            }
-            return "S0001";
-        }
     }
 }

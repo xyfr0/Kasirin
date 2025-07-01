@@ -16,7 +16,8 @@ import kasirin.util.Koneksi;
  * @author ASUS
  */
 public class FormTambah extends javax.swing.JFrame {
-    DefaultTableModel dtm;
+    DefaultTableModel dtmTransaction;
+    DefaultTableModel dtmProduct;
   
     
     /**
@@ -252,10 +253,10 @@ public class FormTambah extends javax.swing.JFrame {
             ps.setString(1, "%" + keyword + "%");
             ResultSet rs = ps.executeQuery();
             
-            dtm.setRowCount(0);
+            dtmProduct.setRowCount(0);
             
             while(rs.next()){
-                dtm.addRow(new Object[]{
+                dtmProduct.addRow(new Object[]{
                     rs.getString("product_id"),
                     rs.getString("product_name"),
                     rs.getDouble("price")

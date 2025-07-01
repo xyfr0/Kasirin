@@ -2,9 +2,7 @@ package kasirin.gui;
 
 
 import kasirin.gui.Operator.FormOperator;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import java.sql.*;
+import kasirin.gui.shift.FormShift;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -163,32 +161,6 @@ public class FormKasirAdmin extends javax.swing.JFrame {
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         FormTambah inputForm = new FormTambah();
         inputForm.setVisible(true);        
-//        if (inputForm.isSubmitted()) {
-//                    String order = inputForm.getOrder();
-//                    String transaksi = inputForm.getTransaksi();
-//                    String quantity = inputForm.getQuantity();
-//                    String operator = inputForm.getOperator();
-//                    String subtotal = inputForm.getSubtotal();
-//
-//                    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-//                    model.addRow(new Object[]{
-//                        model.getRowCount() + 1, // Atau gunakan ID yang sebenarnya dari database jika ada
-//                        order, transaksi, quantity, operator, subtotal
-//                    });
-//                    JOptionPane.showMessageDialog(this, "Data berhasil ditambahkan!");
-//                } 
-//        String order = inputForm.getOrder();
-//        String transaksi = inputForm.getTransaksi();
-//        String quantity = inputForm.getQuantity();
-//        String operator = inputForm.getOperator();
-//        String subtotal = inputForm.getSubtotal();
-//    // dst...
-//
-//    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-//    model.addRow(new Object[]{
-//        model.getRowCount() + 1,
-//        order, transaksi, quantity, operator,subtotal
-//    });
 
     }//GEN-LAST:event_addBtnActionPerformed
 
@@ -203,7 +175,9 @@ public class FormKasirAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_bOperatorActionPerformed
 
     private void bShiftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bShiftActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:        
+        FormShift x = new FormShift();
+        x.setVisible(true);
     }//GEN-LAST:event_bShiftActionPerformed
 
     /**
