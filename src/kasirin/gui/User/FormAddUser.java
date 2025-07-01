@@ -19,8 +19,7 @@ import kasirin.util.Koneksi;
  * @author jabba
  */
 public class FormAddUser extends javax.swing.JFrame {
-
-    User user = new User();
+    
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormAddUser.class.getName());       
     
@@ -243,15 +242,26 @@ public class FormAddUser extends javax.swing.JFrame {
 
     private void addOperatorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addOperatorButtonActionPerformed
         if (nameField.getText().equalsIgnoreCase("") || usernameField.getText().equalsIgnoreCase("") || passwordField.getText().equalsIgnoreCase("") || roleSelect.getSelectedItem().equals(" ")) {
-            JOptionPane.showMessageDialog(this, "Pastikan masukkan seluruh data");
+            JOptionPane.showMessageDialog(this, "Pastikan memasukkan seluruh data");
         } else {
-            String username = usernameField.getText();
-            String password = passwordField.getText();
-            String fullname = nameField.getText();
-            User userInput = new User(username, password, fullname);
-
-            JOptionPane.showMessageDialog(this, "Register Success!");
-            emptyField();
+            try {
+                String username = usernameField.getText();
+                String password = passwordField.getText();
+                String fullname = nameField.getText();
+                String selectRole = roleSelect.getSelectedItem().toString();
+                LocalTime selectShift = LocalTime.parse(shiftSelect.getSelectedItem().toString().substring(0, 5));
+                System.out.println(selectShift);
+                User userInput = new User(username, password, fullname);
+                
+                userInput.addUser(userInput, Koneksi.connect(), selectRole, selectShift);
+                
+                JOptionPane.showMessageDialog(this, "Register Success!");
+                emptyField();
+            } catch (SQLException ex) {
+                System.getLogger(FormAddUser.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            } catch (ClassNotFoundException ex) {
+                System.getLogger(FormAddUser.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            }
         }
     }//GEN-LAST:event_addOperatorButtonActionPerformed
 

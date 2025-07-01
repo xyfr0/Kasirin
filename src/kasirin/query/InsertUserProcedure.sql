@@ -22,13 +22,13 @@ BEGIN
 	DECLARE @NextNum INT;	
 	DECLARE @RoleID VARCHAR(10);
 	DECLARE @ShiftID VARCHAR(10);
-	SELECT @LastID = MAX(user_id) FROM Users WHERE user_id LIKE 'U%';
+	SELECT @LastID = MAX(user_id) FROM Users WHERE user_id LIKE 'U[0-9][0-9][0-9]' ORDER BY user_id ASC;
 
 	IF @LastID IS NULL
-		SET @NewID = 'U0001';
+		SET @NextNum = 1;
 	ELSE
-		BEGIN
-			SET @NextNum = CAST(SUBSTRING(@LastID, 2, 4) AS INT) + 1;
+                SET @NextNum = CAST(SUBSTRING(@LastID, 2, 4) AS INT) + 1;
+		BEGIN			
 			SET @NewID = 'U' + RIGHT('0000' + CAST(@NextNum AS VARCHAR), 4);
 		END
 

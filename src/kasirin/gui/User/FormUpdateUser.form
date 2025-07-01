@@ -65,8 +65,7 @@
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="nameField" alignment="0" min="-2" pref="369" max="-2" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="addOperatorButton" min="-2" max="-2" attributes="0"/>
+                              <Component id="updateOperatorButton" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="clearButton" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -105,9 +104,9 @@
                       <Component id="roleSelect" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="shiftSelect" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="shiftSelect" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -116,7 +115,7 @@
                   </Group>
                   <EmptySpace pref="66" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="addOperatorButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="updateOperatorButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="clearButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="closeButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -148,12 +147,12 @@
             <Property name="text" type="java.lang.String" value="Password"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="addOperatorButton">
+        <Component class="javax.swing.JButton" name="updateOperatorButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Update"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addOperatorButtonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updateOperatorButtonActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="clearButton">

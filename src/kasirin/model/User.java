@@ -17,25 +17,22 @@ import kasirin.util.Koneksi;
  * @author jabba
  */
 public class User {
-    private String userID;        
+
+    private String userID;
     private String username;
-    private String password;    
+    private String password;
     private String fullname;
-    private LocalDate registered_at;    
+    private LocalDate registered_at;
 
     public User(String username, String password, String fullname) {
         this.username = username;
         this.password = password;
         this.fullname = fullname;
-        
+
     }
-   
+
     public User() {
     }
-    
-    
-
-    
 
     public String getUserID() {
         return userID;
@@ -61,8 +58,6 @@ public class User {
         this.password = password;
     }
 
-
-
     public String getUsername() {
         return username;
     }
@@ -79,12 +74,8 @@ public class User {
         this.registered_at = registered_at;
     }
 
-
-    
-    
-    
-    public void addUser(User user, Connection conn, String selectedRole, LocalTime startShift) throws SQLException{
-        String sql = "USE KASIRIN EXEC InsertUser @username=?, @password=?, @fullname=?, @selectedRole=?, @startShift=?";        
+    public void addUser(User user, Connection conn, String selectedRole, LocalTime startShift) throws SQLException {
+        String sql = "USE KASIRIN EXEC InsertUser @username=?, @password=?, @fullname=?, @selectedRole=?, @startShift=?";
         try (PreparedStatement ps = conn.prepareCall(sql)) {
             ps.setString(1, user.getUsername());
             ps.setString(2, user.getPassword());
@@ -95,6 +86,16 @@ public class User {
         }
     }
     
-    
-    
+    public void updateUser(User user, Connection conn, String selectedRole, LocalTime startShift) throws SQLException{
+        String sql = "USE KASIRIN EXEC InsertUser @username=?, @password=?, @fullname=?, @selectedRole=?, @startShift=?";
+        try (PreparedStatement ps = conn.prepareCall(sql)) {
+            ps.setString(1, user.getUsername());
+            ps.setString(2, user.getPassword());
+            ps.setString(3, user.getFullname());
+            ps.setString(4, selectedRole);
+            ps.setObject(5, startShift);
+            ps.executeUpdate();
+        }   
+    }
+
 }
