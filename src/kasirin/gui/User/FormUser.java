@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package kasirin.gui.Operator;
+package kasirin.gui.User;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -10,12 +10,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Muhammad Dzaky
  */
-public class FormOperator extends javax.swing.JFrame {
+public class FormUser extends javax.swing.JFrame {
 
     /**
      * Creates new form FormOperator
      */
-    public FormOperator() {        
+    public FormUser() {        
         DefaultTableModel dtm = (DefaultTableModel) operatorTable.getModel();        
         dtm.getDataVector().removeAllElements();
         
@@ -146,12 +146,12 @@ public class FormOperator extends javax.swing.JFrame {
     }//GEN-LAST:event_bCloseActionPerformed
 
     private void bAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAddActionPerformed
-        FormAddOperator x = new FormAddOperator();
+        FormAddUser x = new FormAddUser();
         x.setVisible(true);
     }//GEN-LAST:event_bAddActionPerformed
 
     private void bUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bUpdateActionPerformed
-        FormUpdateOperator x = new FormUpdateOperator();
+        FormUpdateUser x = new FormUpdateUser();
         x.setVisible(true);
         
     }//GEN-LAST:event_bUpdateActionPerformed
@@ -173,20 +173,21 @@ public class FormOperator extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormOperator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormOperator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormOperator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormOperator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormOperator().setVisible(true);
+                new FormUser().setVisible(true);
             }
         });
     }

@@ -5,8 +5,8 @@
 package kasirin.gui;
 
 import java.sql.*;
-import java.time.LocalTime;
 import javax.swing.JOptionPane;
+import kasirin.model.Session;
 import kasirin.util.Koneksi;
 
 /**
@@ -37,7 +37,7 @@ public class FormLogin extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         bLogin = new javax.swing.JButton();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        tPassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,7 +82,7 @@ public class FormLogin extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(tUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
-                    .addComponent(jPasswordField1))
+                    .addComponent(tPassword))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(346, Short.MAX_VALUE)
@@ -105,7 +105,7 @@ public class FormLogin extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(tPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addComponent(bLogin)
                 .addGap(198, 198, 198))
         );
@@ -127,7 +127,7 @@ public class FormLogin extends javax.swing.JFrame {
 
     private void bLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLoginActionPerformed
         String username = tUsername.getText();
-        String password = jPasswordField1.getText();
+        String password = tPassword.getText();
 
         try (Connection conn = Koneksi.connect()) {
             String sql = "SELECT * FROM Users WHERE username COLLATE Latin1_General_CS_AS =? AND password COLLATE Latin1_General_CS_AS =?";
@@ -136,9 +136,38 @@ public class FormLogin extends javax.swing.JFrame {
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                FormKasir x = new FormKasir();
-                x.setVisible(true);
-                this.dispose();
+                String sqlRoleCheck = "USE KASIRIN "
+                        + "SELECT u.user_id, r.role_name "
+                        + "FROM Users u JOIN UserRoles ur ON u.user_id = ur.user_id "
+                        + "JOIN Roles r ON ur.role_id = r.role_id WHERE u.username=? AND u.password =?";
+                PreparedStatement psRoleCheck = conn.prepareStatement(sqlRoleCheck);
+                psRoleCheck.setString(1, tUsername.getText());
+                psRoleCheck.setString(2, tPassword.getText());
+
+                ResultSet rsRoleCheck = psRoleCheck.executeQuery();
+                if (rsRoleCheck.next()) {
+                    Session.username = rsRoleCheck.getString("user_id");
+                    Session.role = rsRoleCheck.getString("role_name");
+                    while (rsRoleCheck.next()) {
+                        Session.role = rsRoleCheck.getString("role_name");
+                    }
+                    
+                    if (Session.role.equalsIgnoreCase("Chief")) {
+                        FormKasir x = new FormKasir("Chief");
+                        x.setVisible(true);
+                        this.dispose();
+                    } else if (Session.role.equalsIgnoreCase("Admin")) {
+                        FormKasir x = new FormKasir("Admin");
+                        x.setVisible(true);
+                        this.dispose();
+                    } else if (Session.role.equalsIgnoreCase("Cashier")) {
+                        FormKasir x = new FormKasir("Cashier");
+                        x.setVisible(true);
+                        this.dispose();
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(this, "Kredensial Invalid!");
+                } 
             } else {
                 JOptionPane.showMessageDialog(this, "Username Atau Password Salah!");
             }
@@ -195,7 +224,7 @@ public class FormLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JPasswordField tPassword;
     private javax.swing.JTextField tUsername;
     // End of variables declaration//GEN-END:variables
 }

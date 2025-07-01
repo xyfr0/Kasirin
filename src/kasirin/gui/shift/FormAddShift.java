@@ -182,7 +182,7 @@ public class FormAddShift extends javax.swing.JFrame {
         if(isShiftOver(startTime, endTime)){
             JOptionPane.showMessageDialog(this, "Shift tidak boleh lebih dari 8 Jam (480 menit)");
         }else{
-            try {
+            try {                
                 Shift shift = new Shift(startTime, endTime);
                 shift.addShift(shift, Koneksi.connect());
                 JOptionPane.showMessageDialog(this, "Shift berhasil ditambah!");
@@ -198,8 +198,8 @@ public class FormAddShift extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private boolean isShiftOver(LocalTime startTime, LocalTime endTime){
-        long duration = Duration.between(startTime, endTime).toMinutes()%60;        
-        return duration > 480;
+        long durationInMinutes = Duration.between(startTime, endTime).toMinutes();        
+        return durationInMinutes > 480;
     }
     /**
      * @param args the command line arguments

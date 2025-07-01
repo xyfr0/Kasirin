@@ -1,9 +1,8 @@
 package kasirin.gui;
 
 
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import java.sql.*;
+import kasirin.gui.User.FormUser;
+import kasirin.gui.shift.FormShift;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -21,11 +20,20 @@ public class FormKasir extends javax.swing.JFrame {
      */
     //deklarasi koneksi db
     
-    public FormKasir() {
+    public FormKasir(String role) {
         //perintah koneksi ke db
             
         
         initComponents();
+        
+        if(role.equalsIgnoreCase("Cashier")){
+            bProduct.setEnabled(false);
+            bOperator.setEnabled(false);
+            bShift.setEnabled(false);
+        } else if(role.equalsIgnoreCase("Admin")){
+            bOperator.setEnabled(false);
+            bShift.setEnabled(false);
+        }
     }
     
     private void Kosongkan(){
@@ -43,10 +51,13 @@ public class FormKasir extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        openTransactionBtn = new javax.swing.JButton();
+        addBtn = new javax.swing.JButton();
         jScrollPane = new javax.swing.JScrollPane();
         tableTransaksi = new javax.swing.JTable();
         btnOrder = new javax.swing.JButton();
+        bOperator = new javax.swing.JButton();
+        bShift = new javax.swing.JButton();
+        bProduct = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,10 +68,11 @@ public class FormKasir extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/kasirin/assets/transfer-money_12749045.png"))); // NOI18N
         jLabel1.setText("REKAP CEPAT");
 
-        openTransactionBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/kasirin/assets/windows_13129897.png"))); // NOI18N
-        openTransactionBtn.addActionListener(new java.awt.event.ActionListener() {
+        addBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/kasirin/assets/windows_13129897.png"))); // NOI18N
+        addBtn.setText("Transaction");
+        addBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                openTransactionBtnActionPerformed(evt);
+                addBtnActionPerformed(evt);
             }
         });
 
@@ -78,9 +90,34 @@ public class FormKasir extends javax.swing.JFrame {
         jScrollPane.setViewportView(tableTransaksi);
 
         btnOrder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/kasirin/assets/folder_6594791 (1).png"))); // NOI18N
+        btnOrder.setText("Order");
         btnOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnOrderActionPerformed(evt);
+            }
+        });
+
+        bOperator.setIcon(new javax.swing.ImageIcon(getClass().getResource("/kasirin/assets/person_12118688.png"))); // NOI18N
+        bOperator.setText("Operator");
+        bOperator.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bOperatorActionPerformed(evt);
+            }
+        });
+
+        bShift.setIcon(new javax.swing.ImageIcon(getClass().getResource("/kasirin/assets/time-left.png"))); // NOI18N
+        bShift.setText("Shift");
+        bShift.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bShiftActionPerformed(evt);
+            }
+        });
+
+        bProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/kasirin/assets/person_12118688.png"))); // NOI18N
+        bProduct.setText("Operator");
+        bProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bProductActionPerformed(evt);
             }
         });
 
@@ -97,8 +134,11 @@ public class FormKasir extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(openTransactionBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
-                            .addComponent(btnOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(addBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bOperator, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bShift, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bProduct, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 638, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))))
@@ -111,9 +151,15 @@ public class FormKasir extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(openTransactionBtn)
+                        .addComponent(addBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnOrder))
+                        .addComponent(btnOrder)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bOperator, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bShift, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
@@ -133,17 +179,31 @@ public class FormKasir extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void openTransactionBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openTransactionBtnActionPerformed
+    private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         FormTambah inputForm = new FormTambah();
-        inputForm.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_openTransactionBtnActionPerformed
+        inputForm.setVisible(true);        
+
+    }//GEN-LAST:event_addBtnActionPerformed
 
     private void btnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderActionPerformed
         FormOrder order = new FormOrder();
-        order.setVisible(true);
-        this.dispose();
+        order.setVisible(true);        
     }//GEN-LAST:event_btnOrderActionPerformed
+
+    private void bOperatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bOperatorActionPerformed
+        FormUser x = new FormUser();
+        x.setVisible(true);        
+    }//GEN-LAST:event_bOperatorActionPerformed
+
+    private void bShiftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bShiftActionPerformed
+        // TODO add your handling code here:        
+        FormShift x = new FormShift();
+        x.setVisible(true);
+    }//GEN-LAST:event_bShiftActionPerformed
+
+    private void bProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bProductActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bProductActionPerformed
 
     /**
      * @param args the command line arguments
@@ -171,21 +231,27 @@ public class FormKasir extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(FormKasir.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormKasir().setVisible(true);
+                new FormKasir("Chief").setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addBtn;
+    private javax.swing.JButton bOperator;
+    private javax.swing.JButton bProduct;
+    private javax.swing.JButton bShift;
     private javax.swing.JButton btnOrder;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane;
-    private javax.swing.JButton openTransactionBtn;
     private javax.swing.JTable tableTransaksi;
     // End of variables declaration//GEN-END:variables
 }

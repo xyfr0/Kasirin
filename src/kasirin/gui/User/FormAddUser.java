@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package kasirin.gui.Operator;
+package kasirin.gui.User;
 
 import javax.swing.JOptionPane;
 import kasirin.model.User;
@@ -18,40 +18,44 @@ import kasirin.util.Koneksi;
  *
  * @author jabba
  */
-public class FormAddOperator extends javax.swing.JFrame {
+public class FormAddUser extends javax.swing.JFrame {
 
     User user = new User();
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormAddOperator.class.getName());
-
-    public List<String> getShiftList(Connection conn) throws SQLException {
-        List<String> shiftStartList = new ArrayList<>();        
-        String sql = "SELECT FORMAT (shift_start, N'hh\\:mm') + (shift_end, N'hh\\:mm') AS shiftTime FROM Shifts";
-        PreparedStatement ps = conn.prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-            shiftStartList.add(rs.getString("shiftTime"));
-        }
-        return shiftStartList;
-    }
-    
-    public List<String> getOperatorList(Connection conn) throws SQLException {
-        List<String> operatorList = new ArrayList<>();        
-        String sql = "SELECT role_name AS roleName FROM Roles";
-        PreparedStatement ps = conn.prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-            operatorList.add(rs.getString("roleName"));
-        }
-        return operatorList;
-    }    
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FormAddUser.class.getName());       
     
 
     /**
      * Creates new form FormAddOperator
      */
-    public FormAddOperator() {
+    public FormAddUser() {
         initComponents();
+        
+        try(Connection conn = Koneksi.connect()){
+            String roleQuery = "SELECT role_name FROM Roles";
+            PreparedStatement ps = conn.prepareStatement(roleQuery);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                roleSelect.addItem(rs.getString("role_name"));
+            }
+        } catch (SQLException ex) {
+            System.getLogger(FormAddUser.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        } catch (ClassNotFoundException ex) {
+            System.getLogger(FormAddUser.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+        
+        try(Connection conn = Koneksi.connect()){
+            String shiftQuery = "SELECT CONCAT(FORMAT(shift_start, N'hh\\:mm'), ' - ', FORMAT(shift_end, N'hh\\:mm')) AS ShiftTime FROM Shifts";
+            PreparedStatement ps = conn.prepareStatement(shiftQuery);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                shiftSelect.addItem(rs.getString("ShiftTime"));
+            }
+        } catch (SQLException ex) {
+            System.getLogger(FormAddUser.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        } catch (ClassNotFoundException ex) {
+            System.getLogger(FormAddUser.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
     }
 
     public void emptyField() {
@@ -59,6 +63,7 @@ public class FormAddOperator extends javax.swing.JFrame {
         usernameField.setText("");
         passwordField.setText("");
         roleSelect.setSelectedIndex(0);
+        shiftSelect.setSelectedIndex(0);
     }
 
     /**
@@ -84,7 +89,7 @@ public class FormAddOperator extends javax.swing.JFrame {
         roleSelect = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        roleSelect1 = new javax.swing.JComboBox<>();
+        shiftSelect = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 255, 204));
@@ -99,7 +104,7 @@ public class FormAddOperator extends javax.swing.JFrame {
 
         jTextField4.setText(" ");
 
-        jLabel2.setText("Nama");
+        jLabel2.setText("Nama Lengkap");
 
         jLabel5.setText("Username");
 
@@ -127,21 +132,13 @@ public class FormAddOperator extends javax.swing.JFrame {
             }
         });
 
-        try(Connection conn = Koneksi.connect()){
-            roleSelect.setModel(new DefaultComboBoxModel<>(getOperatorList(conn).toArray(new String[0])));
-        } catch(Exception e){
-            e.getMessage();
-        }
+        roleSelect.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
 
         jLabel7.setText("Role");
 
         jLabel8.setText("Shift");
 
-        try{
-            roleSelect1.setModel(new DefaultComboBoxModel<>(getShiftList(Koneksi.connect()).toArray(new String[0])));
-        }catch(Exception e){
-            e.getMessage();
-        }
+        shiftSelect.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -151,38 +148,40 @@ public class FormAddOperator extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(7, 7, 7)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(21, 21, 21)
+                                .addGap(7, 7, 7)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(nameField)
-                                    .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.TRAILING)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 207, Short.MAX_VALUE)
-                                .addComponent(addOperatorButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(clearButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(closeButton))))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 159, Short.MAX_VALUE)
+                                        .addComponent(addOperatorButton)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(clearButton)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(closeButton))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(21, 21, 21)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(nameField)
+                                            .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.TRAILING)))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(28, 28, 28)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(shiftSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(roleSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(usernameField))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(8, 8, 8)
-                        .addComponent(passwordField))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(36, 36, 36)
-                        .addComponent(roleSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(roleSelect1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6))
+                        .addGap(54, 54, 54)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(passwordField)
+                            .addComponent(usernameField))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -205,10 +204,12 @@ public class FormAddOperator extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(roleSelect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(roleSelect1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
+                    .addComponent(shiftSelect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addOperatorButton)
                     .addComponent(clearButton)
@@ -288,7 +289,7 @@ public class FormAddOperator extends javax.swing.JFrame {
         //</editor-fold>
         
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new FormAddOperator().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new FormAddUser().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -305,7 +306,7 @@ public class FormAddOperator extends javax.swing.JFrame {
     private javax.swing.JTextField nameField;
     private javax.swing.JTextField passwordField;
     private javax.swing.JComboBox<String> roleSelect;
-    private javax.swing.JComboBox<String> roleSelect1;
+    private javax.swing.JComboBox<String> shiftSelect;
     private javax.swing.JTextField usernameField;
     // End of variables declaration//GEN-END:variables
 }

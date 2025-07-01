@@ -7,7 +7,11 @@
  * Created: Jul 1, 2025
  */
 
+
+
 --DROP TABLE Categories, Orders, Products, Transactions, OrderItems, UserShifts, Shifts, UserRoles, Users, Roles
+
+
 USE KASIRIN
 
 CREATE TABLE Roles
