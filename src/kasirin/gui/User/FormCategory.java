@@ -45,15 +45,35 @@ public class FormCategory extends javax.swing.JFrame {
 
         bAdd.setFont(new java.awt.Font("Tw Cen MT", 1, 12)); // NOI18N
         bAdd.setText("Add");
+        bAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bAddActionPerformed(evt);
+            }
+        });
 
         bUpdate.setFont(new java.awt.Font("Tw Cen MT", 1, 12)); // NOI18N
         bUpdate.setText("Update");
+        bUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bUpdateActionPerformed(evt);
+            }
+        });
 
         bDelete.setFont(new java.awt.Font("Tw Cen MT", 1, 12)); // NOI18N
         bDelete.setText("Delete");
+        bDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bDeleteActionPerformed(evt);
+            }
+        });
 
         bClose.setFont(new java.awt.Font("Tw Cen MT", 1, 12)); // NOI18N
         bClose.setText("Close");
+        bClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bCloseActionPerformed(evt);
+            }
+        });
 
         categoryTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -94,11 +114,12 @@ public class FormCategory extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bAdd)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(bDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bUpdate)
-                    .addComponent(bClose))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(bAdd)
+                        .addComponent(bUpdate)
+                        .addComponent(bClose)))
                 .addContainerGap())
         );
 
@@ -115,6 +136,24 @@ public class FormCategory extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void bAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAddActionPerformed
+        FormAddCategory x = new FormAddCategory();
+        x.setVisible(true);
+    }//GEN-LAST:event_bAddActionPerformed
+
+    private void bUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bUpdateActionPerformed
+        FormUpdateCategory x = new FormUpdateCategory();
+        x.setVisible(true);
+    }//GEN-LAST:event_bUpdateActionPerformed
+
+    private void bDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDeleteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bDeleteActionPerformed
+
+    private void bCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCloseActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_bCloseActionPerformed
 
     /**
      * @param args the command line arguments

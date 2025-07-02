@@ -203,9 +203,9 @@
         <Component class="javax.swing.JButton" name="bProduct">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/kasirin/assets/person_12118688.png"/>
+              <Image iconType="3" name="/kasirin/assets/folder_6594791 (1).png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Operator"/>
+            <Property name="text" type="java.lang.String" value="Product"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bProductActionPerformed"/>

@@ -184,6 +184,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Add"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bAddActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="bClear">
           <Properties>
@@ -192,6 +195,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Clear"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bClearActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="bClose">
           <Properties>
@@ -200,6 +206,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Close"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bCloseActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

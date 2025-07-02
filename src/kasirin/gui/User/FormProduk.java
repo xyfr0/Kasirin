@@ -45,15 +45,35 @@ public class FormProduk extends javax.swing.JFrame {
 
         bAdd.setFont(new java.awt.Font("Tw Cen MT", 1, 12)); // NOI18N
         bAdd.setText("Add");
+        bAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bAddActionPerformed(evt);
+            }
+        });
 
         bUpdate.setFont(new java.awt.Font("Tw Cen MT", 1, 12)); // NOI18N
         bUpdate.setText("Update");
+        bUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bUpdateActionPerformed(evt);
+            }
+        });
 
         bDelete.setFont(new java.awt.Font("Tw Cen MT", 1, 12)); // NOI18N
         bDelete.setText("Delete");
+        bDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bDeleteActionPerformed(evt);
+            }
+        });
 
         bClose.setFont(new java.awt.Font("Tw Cen MT", 1, 12)); // NOI18N
         bClose.setText("Close");
+        bClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bCloseActionPerformed(evt);
+            }
+        });
 
         productTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -113,6 +133,24 @@ public class FormProduk extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void bAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAddActionPerformed
+        FormAddProduk x = new FormAddProduk();
+        x.setVisible(true);
+    }//GEN-LAST:event_bAddActionPerformed
+
+    private void bUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bUpdateActionPerformed
+        FormUpdateProduct x = new FormUpdateProduct();
+        x.setVisible(true);
+    }//GEN-LAST:event_bUpdateActionPerformed
+
+    private void bDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDeleteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bDeleteActionPerformed
+
+    private void bCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCloseActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_bCloseActionPerformed
 
     /**
      * @param args the command line arguments

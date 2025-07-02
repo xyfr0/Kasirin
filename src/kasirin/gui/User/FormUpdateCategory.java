@@ -63,12 +63,27 @@ public class FormUpdateCategory extends javax.swing.JFrame {
 
         bUpdate.setFont(new java.awt.Font("Tw Cen MT", 1, 12)); // NOI18N
         bUpdate.setText("Update");
+        bUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bUpdateActionPerformed(evt);
+            }
+        });
 
         bClear.setFont(new java.awt.Font("Tw Cen MT", 1, 12)); // NOI18N
         bClear.setText("Clear");
+        bClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bClearActionPerformed(evt);
+            }
+        });
 
         bClose.setFont(new java.awt.Font("Tw Cen MT", 1, 12)); // NOI18N
         bClose.setText("Close");
+        bClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bCloseActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -131,6 +146,20 @@ public class FormUpdateCategory extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void bUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bUpdateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bUpdateActionPerformed
+
+    private void bClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bClearActionPerformed
+        selectCategory.setSelectedItem(0);
+        fNewCategoryname.setText("");
+        areaDescription.setText("");
+    }//GEN-LAST:event_bClearActionPerformed
+
+    private void bCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCloseActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_bCloseActionPerformed
 
     /**
      * @param args the command line arguments

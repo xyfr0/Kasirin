@@ -50,12 +50,27 @@ public class FormAddCategory extends javax.swing.JFrame {
 
         bAdd.setFont(new java.awt.Font("Tw Cen MT", 1, 12)); // NOI18N
         bAdd.setText("Add");
+        bAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bAddActionPerformed(evt);
+            }
+        });
 
         bClear.setFont(new java.awt.Font("Tw Cen MT", 1, 12)); // NOI18N
         bClear.setText("Clear");
+        bClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bClearActionPerformed(evt);
+            }
+        });
 
         bClose.setFont(new java.awt.Font("Tw Cen MT", 1, 12)); // NOI18N
         bClose.setText("Close");
+        bClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bCloseActionPerformed(evt);
+            }
+        });
 
         areaDescription.setColumns(20);
         areaDescription.setFont(new java.awt.Font("Tw Cen MT", 0, 12)); // NOI18N
@@ -117,6 +132,19 @@ public class FormAddCategory extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void bAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAddActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bAddActionPerformed
+
+    private void bClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bClearActionPerformed
+        fName.setText("");
+        areaDescription.setText("");
+    }//GEN-LAST:event_bClearActionPerformed
+
+    private void bCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCloseActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_bCloseActionPerformed
 
     /**
      * @param args the command line arguments

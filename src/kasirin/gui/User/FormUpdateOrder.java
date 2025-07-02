@@ -33,13 +33,13 @@ public class FormUpdateOrder extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         fOrderitemid = new javax.swing.JTextField();
-        selectProduct = new javax.swing.JComboBox<>();
         fQuantity = new javax.swing.JTextField();
         fDiscount = new javax.swing.JTextField();
         fTotal = new javax.swing.JTextField();
         bUpdate = new javax.swing.JButton();
         bClear = new javax.swing.JButton();
         bClose = new javax.swing.JButton();
+        fProduct = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -62,9 +62,6 @@ public class FormUpdateOrder extends javax.swing.JFrame {
 
         fOrderitemid.setFont(new java.awt.Font("Tw Cen MT", 0, 12)); // NOI18N
 
-        selectProduct.setFont(new java.awt.Font("Tw Cen MT", 0, 12)); // NOI18N
-        selectProduct.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         fQuantity.setFont(new java.awt.Font("Tw Cen MT", 0, 12)); // NOI18N
 
         fDiscount.setFont(new java.awt.Font("Tw Cen MT", 0, 12)); // NOI18N
@@ -74,40 +71,58 @@ public class FormUpdateOrder extends javax.swing.JFrame {
 
         bUpdate.setFont(new java.awt.Font("Tw Cen MT", 0, 12)); // NOI18N
         bUpdate.setText("Update");
+        bUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bUpdateActionPerformed(evt);
+            }
+        });
 
         bClear.setFont(new java.awt.Font("Tw Cen MT", 0, 12)); // NOI18N
         bClear.setText("Clear");
+        bClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bClearActionPerformed(evt);
+            }
+        });
 
         bClose.setFont(new java.awt.Font("Tw Cen MT", 0, 12)); // NOI18N
         bClose.setText("Close");
+        bClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bCloseActionPerformed(evt);
+            }
+        });
+
+        fProduct.setFont(new java.awt.Font("Tw Cen MT", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(fOrderitemid)
-                    .addComponent(selectProduct, 0, 262, Short.MAX_VALUE)
-                    .addComponent(fQuantity)
-                    .addComponent(fDiscount)
-                    .addComponent(fTotal))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(198, Short.MAX_VALUE)
-                .addComponent(bUpdate)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bClear)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bClose)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(fOrderitemid, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
+                            .addComponent(fQuantity)
+                            .addComponent(fDiscount)
+                            .addComponent(fTotal)
+                            .addComponent(fProduct)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(198, Short.MAX_VALUE)
+                        .addComponent(bUpdate)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bClear)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bClose)))
                 .addGap(24, 24, 24))
         );
         jPanel1Layout.setVerticalGroup(
@@ -120,7 +135,7 @@ public class FormUpdateOrder extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(selectProduct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fProduct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -154,6 +169,22 @@ public class FormUpdateOrder extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void bUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bUpdateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bUpdateActionPerformed
+
+    private void bClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bClearActionPerformed
+        fOrderitemid.setText("");
+        fProduct.setText("");
+        fQuantity.setText("");
+        fDiscount.setText("");
+        fTotal.setText("");
+    }//GEN-LAST:event_bClearActionPerformed
+
+    private void bCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCloseActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_bCloseActionPerformed
 
     /**
      * @param args the command line arguments
@@ -196,6 +227,7 @@ public class FormUpdateOrder extends javax.swing.JFrame {
     private javax.swing.JButton bUpdate;
     private javax.swing.JTextField fDiscount;
     private javax.swing.JTextField fOrderitemid;
+    private javax.swing.JTextField fProduct;
     private javax.swing.JTextField fQuantity;
     private javax.swing.JTextField fTotal;
     private javax.swing.JLabel jLabel1;
@@ -204,6 +236,5 @@ public class FormUpdateOrder extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JComboBox<String> selectProduct;
     // End of variables declaration//GEN-END:variables
 }

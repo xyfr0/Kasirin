@@ -50,7 +50,7 @@
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="fSearchID" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                          <Component id="bSearch" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="jScrollPane1" min="-2" pref="593" max="-2" attributes="0"/>
@@ -77,7 +77,7 @@
                   <EmptySpace pref="18" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="fSearchID" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="bSearch" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="328" max="-2" attributes="0"/>
@@ -110,6 +110,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Add"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bAddActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="bUpdate">
           <Properties>
@@ -118,6 +121,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Update"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bUpdateActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="bDelete">
           <Properties>
@@ -126,6 +132,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Delete"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bDeleteActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="bClose">
           <Properties>
@@ -134,6 +143,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Close"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bCloseActionPerformed"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
 
@@ -194,13 +206,16 @@
             <Property name="text" type="java.lang.String" value="search by id "/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="bSearch">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tw Cen MT" size="12" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Search"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bSearchActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

@@ -1,6 +1,7 @@
 package kasirin.gui;
 
 
+import kasirin.gui.Produk.FormProduk;
 import kasirin.gui.User.FormUser;
 import kasirin.gui.shift.FormShift;
 
@@ -113,8 +114,8 @@ public class FormKasir extends javax.swing.JFrame {
             }
         });
 
-        bProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/kasirin/assets/person_12118688.png"))); // NOI18N
-        bProduct.setText("Operator");
+        bProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/kasirin/assets/folder_6594791 (1).png"))); // NOI18N
+        bProduct.setText("Product");
         bProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bProductActionPerformed(evt);
@@ -202,7 +203,8 @@ public class FormKasir extends javax.swing.JFrame {
     }//GEN-LAST:event_bShiftActionPerformed
 
     private void bProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bProductActionPerformed
-        // TODO add your handling code here:
+        FormProduk x = new FormProduk();
+        x.setVisible(true);
     }//GEN-LAST:event_bProductActionPerformed
 
     /**

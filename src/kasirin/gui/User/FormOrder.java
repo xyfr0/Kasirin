@@ -35,7 +35,7 @@ public class FormOrder extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         orderProdouctTable = new javax.swing.JTable();
         fSearchID = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        bSearch = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,15 +47,35 @@ public class FormOrder extends javax.swing.JFrame {
 
         bAdd.setFont(new java.awt.Font("Tw Cen MT", 1, 12)); // NOI18N
         bAdd.setText("Add");
+        bAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bAddActionPerformed(evt);
+            }
+        });
 
         bUpdate.setFont(new java.awt.Font("Tw Cen MT", 1, 12)); // NOI18N
         bUpdate.setText("Update");
+        bUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bUpdateActionPerformed(evt);
+            }
+        });
 
         bDelete.setFont(new java.awt.Font("Tw Cen MT", 1, 12)); // NOI18N
         bDelete.setText("Delete");
+        bDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bDeleteActionPerformed(evt);
+            }
+        });
 
         bClose.setFont(new java.awt.Font("Tw Cen MT", 1, 12)); // NOI18N
         bClose.setText("Close");
+        bClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bCloseActionPerformed(evt);
+            }
+        });
 
         orderProdouctTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -70,8 +90,13 @@ public class FormOrder extends javax.swing.JFrame {
         fSearchID.setFont(new java.awt.Font("Tw Cen MT", 0, 12)); // NOI18N
         fSearchID.setText("search by id ");
 
-        jButton1.setFont(new java.awt.Font("Tw Cen MT", 1, 12)); // NOI18N
-        jButton1.setText("Search");
+        bSearch.setFont(new java.awt.Font("Tw Cen MT", 1, 12)); // NOI18N
+        bSearch.setText("Search");
+        bSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bSearchActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -84,7 +109,7 @@ public class FormOrder extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(fSearchID)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1))
+                        .addComponent(bSearch))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 593, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createSequentialGroup()
@@ -105,7 +130,7 @@ public class FormOrder extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(fSearchID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(bSearch))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -130,6 +155,28 @@ public class FormOrder extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void bAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAddActionPerformed
+        FormAddOrder x = new FormAddOrder();
+        x.setVisible(true);
+    }//GEN-LAST:event_bAddActionPerformed
+
+    private void bUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bUpdateActionPerformed
+        FormUpdateOrder x = new FormUpdateOrder();
+        x.setVisible(true);
+    }//GEN-LAST:event_bUpdateActionPerformed
+
+    private void bDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDeleteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bDeleteActionPerformed
+
+    private void bCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCloseActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_bCloseActionPerformed
+
+    private void bSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSearchActionPerformed
+        String like = fSearchID.getText();
+    }//GEN-LAST:event_bSearchActionPerformed
 
     /**
      * @param args the command line arguments
@@ -170,9 +217,9 @@ public class FormOrder extends javax.swing.JFrame {
     private javax.swing.JButton bAdd;
     private javax.swing.JButton bClose;
     private javax.swing.JButton bDelete;
+    private javax.swing.JButton bSearch;
     private javax.swing.JButton bUpdate;
     private javax.swing.JTextField fSearchID;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
